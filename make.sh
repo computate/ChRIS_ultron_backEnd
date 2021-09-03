@@ -8,6 +8,7 @@
 #
 #   make.sh                     [-h] [-i] [-s] [-U] [-I]        \
 #                               [-O <swarm|kubernetes>]         \
+#                               [-V <3.7|3.0>]                  \
 #                               [-P <hostIp>]                   \
 #                               [-S <storeBase>]                \
 #                               [local|fnndsc[:dev]]
@@ -73,6 +74,10 @@
 #
 #       Explicitly set the orchestrator. Default is swarm.
 #
+#   -V <3.7|3.0>
+#
+#       Explicitly set docker-swarm version other than 3.7 (see https://docs.docker.com/compose/compose-file/compose-versioning/#version-37).
+#
 #   -P <hostIp>
 #
 #       Explicitly set the IP address of the machine running this script. This parameter
@@ -130,13 +135,14 @@ ORCHESTRATOR=swarm
 HERE=$(pwd)
 CREPO=fnndsc
 TAG=:latest
+SWARM_VERSION=3.7
 
 if [[ -f .env ]] ; then
     source .env
 fi
 
 print_usage () {
-    echo "Usage: ./make.sh [-h] [-i] [-s] [-U] [-I] [-O <swarm|kubernetes>] [-P <hostIp>] [-S <storeBase>] [local|fnndsc[:dev]]"
+    echo "Usage: ./make.sh [-h] [-i] [-s] [-U] [-I] [-O <swarm|kubernetes>] [-V <3.7|3.0>] [-P <hostIp>] [-S <storeBase>] [local|fnndsc[:dev]]"
     exit 1
 }
 
@@ -157,6 +163,8 @@ while getopts ":hisUIO:P:S:" opt; do
               echo "Invalid value for option -- O"
               print_usage
            fi
+           ;;
+        V) SWARM_VERSION=$OPTARG
            ;;
         P) HOSTIP=$OPTARG
            ;;
@@ -315,8 +323,8 @@ fi
 
 title -d 1 "Starting remote pfcon containerized environment on $ORCHESTRATOR"
     if [[ $ORCHESTRATOR == swarm ]]; then
-        echo "docker stack deploy -c swarm/docker-compose_remote.yml pfcon_stack"   | ./boxes.sh ${LightCyan}
-        docker stack deploy -c swarm/docker-compose_remote.yml pfcon_stack
+        echo "docker stack deploy -c swarm/docker-compose_remote_v${SWARM_VERSION}.yml pfcon_stack"   | ./boxes.sh ${LightCyan}
+        docker stack deploy -c swarm/docker-compose_remote_v${SWARM_VERSION}.yml pfcon_stack
     elif [[ $ORCHESTRATOR == kubernetes ]]; then
       echo "envsubst < kubernetes/pfcon_dev.yaml | kubectl apply -f -"           | ./boxes.sh ${LightCyan}
       envsubst < kubernetes/remote.yaml | kubectl apply -f -
@@ -348,11 +356,11 @@ title -d 1 "Waiting for remote pfcon containers to start running on $ORCHESTRATO
 windowBottom
 
 title -d 1  "Starting CUBE containerized development environment using "            \
-            "./docker-compose_dev.yml"
+            "./docker-compose_dev_v${SWARM_VERSION}.yml"
     echo "This might take a few minutes... please be patient."      | ./boxes.sh ${Yellow}
-    echo "docker-compose -f docker-compose_dev.yml up -d"           | ./boxes.sh ${LightCyan}
+    echo "docker-compose -f docker-compose_dev_v${SWARM_VERSION}.yml up -d"           | ./boxes.sh ${LightCyan}
     windowBottom
-    docker-compose -f docker-compose_dev.yml up -d        >& dc.out > /dev/null
+    docker-compose -f docker-compose_dev_v${SWARM_VERSION}.yml up -d        >& dc.out > /dev/null
     echo -en "\033[2A\033[2K"
     cat dc.out | sed -E 's/(.{80})/\1\n/g'                          | ./boxes.sh ${LightGreen}
 windowBottom
@@ -360,7 +368,7 @@ windowBottom
 title -d 1 "Waiting until ChRIS database server is ready to accept connections..."
     echo "This might take a few minutes... please be patient."      | ./boxes.sh ${Yellow}
     windowBottom
-    docker-compose -f docker-compose_dev.yml        \
+    docker-compose -f docker-compose_dev_v${SWARM_VERSION}.yml        \
         exec chris_dev_db sh -c                     \
         'while ! psql -U chris -d chris_dev -c "select 1" 2> /dev/null; do sleep 5; done;' >& dc.out > /dev/null
     echo -en "\033[2A\033[2K"
@@ -373,7 +381,7 @@ windowBottom
 title -d 1 "Waiting until CUBE is ready to accept connections..."
     echo "This might take a few minutes... please be patient."      | ./boxes.sh ${Yellow}
     windowBottom
-    docker-compose -f docker-compose_dev.yml        \
+    docker-compose -f docker-compose_dev_v${SWARM_VERSION}.yml        \
         exec chris_dev sh -c                        \
         'while ! curl -sSf http://localhost:8000/api/v1/users/ 2> /dev/null; do sleep 5; done;' > dc.out
     echo -en "\033[2A\033[2K"
@@ -386,7 +394,7 @@ windowBottom
 title -d 1 "Waiting until remote pfcon is ready to accept connections..."
     echo "This might take a few minutes... please be patient."      | ./boxes.sh ${Yellow}
     windowBottom
-    docker-compose -f docker-compose_dev.yml        \
+    docker-compose -f docker-compose_dev_v${SWARM_VERSION}.yml        \
         exec chris_dev sh -c                        \
         'while ! curl -sSf http://pfcon.remote:30005/api/v1/ 2> /dev/null; do sleep 5; done;' > dc.out
     echo -en "\033[2A\033[2K"
@@ -400,7 +408,7 @@ if (( ! b_skipUnitTests )) ; then
     title -d 1 "Running CUBE Unit tests..."
     echo "This might take a few minutes... please be patient."      | ./boxes.sh ${Yellow}
     windowBottom
-    docker-compose -f docker-compose_dev.yml    \
+    docker-compose -f docker-compose_dev_v${SWARM_VERSION}.yml    \
         exec chris_dev python manage.py         \
         test --exclude-tag integration
     status=$?
@@ -419,7 +427,7 @@ if (( ! b_skipIntegrationTests )) ; then
     title -d 1 "Running CUBE Integration tests..."
     echo "This might take more than a few minutes... please be patient."    | ./boxes.sh ${Yellow}
     windowBottom
-    docker-compose -f docker-compose_dev.yml    \
+    docker-compose -f docker-compose_dev_v${SWARM_VERSION}.yml    \
         exec chris_dev python manage.py         \
         test --tag integration
     status=$?
@@ -437,7 +445,7 @@ fi
 title -d 1 "Waiting until ChRIS store is ready to accept connections..."
     echo "This might take a few minutes... please be patient."      | ./boxes.sh ${Yellow}
     windowBottom
-    docker-compose -f docker-compose_dev.yml    \
+    docker-compose -f docker-compose_dev_v${SWARM_VERSION}.yml    \
         exec chris_store sh -c                   \
         'while ! curl -sSf http://localhost:8010/api/v1/users/ 2> /dev/null; do sleep 5; done;' > dc.out
     echo -en "\033[2A\033[2K"
@@ -501,7 +509,7 @@ title -d 1 "Automatically creating two unlocked pipelines in the ChRIS STORE" \
     STR3='", "previous_index": 0}]'
     PLUGIN_TREE=${STR1}${S3_PLUGIN_VER}${STR2}${SIMPLEDS_PLUGIN_VER}${STR3}
     windowBottom
-    docker-compose -f docker-compose_dev.yml                        \
+    docker-compose -f docker-compose_dev_v${SWARM_VERSION}.yml                        \
         exec chris_store python pipelines/services/manager.py       \
         add "${PIPELINE_NAME}" cubeadmin "${PLUGIN_TREE}" --unlock
 
@@ -515,7 +523,7 @@ title -d 1 "Automatically creating two unlocked pipelines in the ChRIS STORE" \
     STR7='", "previous_index": 0}]'
     PLUGIN_TREE=${STR4}${SIMPLEDS_PLUGIN_VER}${STR5}${SIMPLEDS_PLUGIN_VER}${STR6}${SIMPLEDS_PLUGIN_VER}${STR7}
     windowBottom
-    docker-compose -f docker-compose_dev.yml                        \
+    docker-compose -f docker-compose_dev_v${SWARM_VERSION}.yml                        \
         exec chris_store python pipelines/services/manager.py       \
         add "${PIPELINE_NAME}" cubeadmin "${PLUGIN_TREE}" --unlock
     echo -en "\033[2A\033[2K"
@@ -528,7 +536,7 @@ title -d 1 "Automatically creating a locked pipeline in CUBE"       \
                 "Creating pipeline..." "[ $PIPELINE_NAME ]"         | ./boxes.sh
     PLUGIN_TREE=${STR1}${S3_PLUGIN_VER}${STR2}${SIMPLEDS_PLUGIN_VER}${STR3}
     windowBottom
-    docker-compose -f docker-compose_dev.yml                        \
+    docker-compose -f docker-compose_dev_v${SWARM_VERSION}.yml                        \
         exec chris_dev                                              \
         python pipelines/services/manager.py add "${PIPELINE_NAME}" cube "${PLUGIN_TREE}" >& dc.out >/dev/null
     echo -en "\033[2A\033[2K"
@@ -541,7 +549,7 @@ title -d 1 "Automatically creating an unlocked pipeline in CUBE" "(unmutable and
                 "Creating pipeline..." "[ $PIPELINE_NAME ]"         | ./boxes.sh
     PLUGIN_TREE=${STR4}${SIMPLEDS_PLUGIN_VER}${STR5}${SIMPLEDS_PLUGIN_VER}${STR6}${SIMPLEDS_PLUGIN_VER}${STR7}
     windowBottom
-    docker-compose -f docker-compose_dev.yml                        \
+    docker-compose -f docker-compose_dev_v${SWARM_VERSION}.yml                        \
         exec chris_dev                                              \
         python pipelines/services/manager.py add "${PIPELINE_NAME}" cube "${PLUGIN_TREE}" --unlock >& dc.out >/dev/null
     echo -en "\033[2A\033[2K"
@@ -552,7 +560,7 @@ title -d 1 "Restarting CUBE's Django development server..."
     printf "${LightCyan}%40s${LightGreen}%40s\n"                \
                 "Restarting" "chris_dev"                        | ./boxes.sh
     windowBottom
-    docker-compose -f docker-compose_dev.yml restart chris_dev >& dc.out >/dev/null
+    docker-compose -f docker-compose_dev_v${SWARM_VERSION}.yml restart chris_dev >& dc.out >/dev/null
     echo -en "\033[2A\033[2K"
     cat dc.out | ./boxes.sh
 windowBottom
