@@ -7,6 +7,7 @@
 # SYNPOSIS
 #
 #   user_add.sh   [-t dev|deploy]                                       \
+                  [-V <3.7|3.0>]                                        \
 #                 [-s <step>] [-U]                                      \
 #                 [-S]                                                  \
 #                 <commaSeparatedListOfUsers@passwords>
@@ -53,12 +54,15 @@
 #       If specified, add user to the ChRIS Store, otherwise add user to 
 #       CUBE.
 #
+#   [-V <3.7|3.0>]
+#
+#       Explicitly set docker-swarm version other than 3.7 (see https://docs.docker.com/compose/compose-file/compose-versioning/#version-37).
+#
 
 source ./decorate.sh
 source ./cparse.sh
 
 declare -a a_USERPASS=()
-DOCKER_COMPOSE_FILE=docker-compose_dev.yml
 CHRIS=chris_dev
 STORE=chris_store
 TARGET=dev
@@ -67,23 +71,27 @@ declare -i b_superUser=0
 declare -i b_CUBE=1
 HERE=$(pwd)
 LINE="------------------------------------------------"
+SWARM_VERSION=3.7
 
 if [[ -f .env ]] ; then
     source .env
 fi
 
-while getopts "f:s:US" opt; do
+while getopts "f:s:V:US" opt; do
     case $opt in
         s)  STEP=$OPTARG
             STEP=$(( STEP -1 ))                 ;;
         t)  TARGET=$OPTARG                      ;;
         U)  b_superUser=1                       ;;
         S)  b_CUBE=0                            ;;
+        V) SWARM_VERSION=$OPTARG                ;;
     esac
 done
 
+DOCKER_COMPOSE_FILE=docker-compose_dev_v${SWARM_VERSION}.yml
+
 case $TARGET in
-    dev)    DOCKER_COMPOSE_FILE=docker-compose_dev.yml
+    dev)    DOCKER_COMPOSE_FILE=docker-compose_dev_v${SWARM_VERSION}.yml
             CHRIS=chris_dev
             STORE=chris_store
             ;;
@@ -91,7 +99,7 @@ case $TARGET in
             CHRIS=chris
             STORE=chris_store
             ;;
-    *)      DOCKER_COMPOSE_FILE=docker-compose_dev.yml
+    *)      DOCKER_COMPOSE_FILE=docker-compose_dev_v${SWARM_VERSION}.yml
             CHRIS=chris_dev
             STORE=chris_store
             ;;
