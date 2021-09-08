@@ -7,6 +7,7 @@
 # SYNPOSIS
 #
 #   make.sh                     [-h] [-i] [-s] [-U] [-I]        \
+#                               [-c <docker|podman>]            \
 #                               [-O <swarm|kubernetes>]         \
 #                               [-V <3.7|3.0>]                  \
 #                               [-P <hostIp>]                   \
@@ -70,6 +71,10 @@
 #
 #       Optional print usage help.
 #
+#   -c <docker|podman>
+#
+#       Explicitly set the container command. Default is docker. 
+#
 #   -O <swarm|kubernetes>
 #
 #       Explicitly set the orchestrator. Default is swarm.
@@ -132,6 +137,7 @@ declare -i b_skipUnitTests=0
 declare -i b_skipIntegrationTests=0
 
 ORCHESTRATOR=swarm
+CONTAINER_COMMAND=docker
 HERE=$(pwd)
 CREPO=fnndsc
 TAG=:latest
@@ -142,11 +148,11 @@ if [[ -f .env ]] ; then
 fi
 
 print_usage () {
-    echo "Usage: ./make.sh [-h] [-i] [-s] [-U] [-I] [-O <swarm|kubernetes>] [-V <3.7|3.0>] [-P <hostIp>] [-S <storeBase>] [local|fnndsc[:dev]]"
+    echo "Usage: ./make.sh [-h] [-i] [-s] [-U] [-I] [-c] <docker|podman> [-O <swarm|kubernetes>] [-V <3.7|3.0>] [-P <hostIp>] [-S <storeBase>] [local|fnndsc[:dev]]"
     exit 1
 }
 
-while getopts ":hisUIO:V:P:S:" opt; do
+while getopts ":hisUIO:c:V:P:S:" opt; do
     case $opt in
         h) print_usage
            ;;
@@ -164,6 +170,11 @@ while getopts ":hisUIO:V:P:S:" opt; do
               print_usage
            fi
            ;;
+        c) CONTAINER_COMMAND=$OPTARG
+           if ! [[ "$CONTAINER_COMMAND" =~ ^(docker|podman)$ ]]; then
+              echo "Invalid value for option -- c"
+              print_usage
+           fi
         V) SWARM_VERSION=$OPTARG
            ;;
         P) HOSTIP=$OPTARG
@@ -233,12 +244,12 @@ windowBottom
 title -d 1 "Pulling non-'local/' core containers where needed..."   \
             "and creating appropriate .env for docker-compose"
 printf "${LightCyan}%40s${Green}%-40s${Yellow}\n"                   \
-            "docker pull" " library/postgres"                          | ./boxes.sh
-docker pull postgres:13                                                 | ./boxes.sh
+            "$CONTAINER_COMMAND pull" " library/postgres"                          | ./boxes.sh
+$CONTAINER_COMMAND pull postgres:13                                                 | ./boxes.sh
 echo ""                                                             | ./boxes.sh
 printf "${LightCyan}%40s${Green}%-40s${Yellow}\n"                   \
-            "docker pull " "library/rabbitmq"                       | ./boxes.sh
-docker pull rabbitmq:3                                              | ./boxes.sh
+            "$CONTAINER_COMMAND pull " "library/rabbitmq"                       | ./boxes.sh
+$CONTAINER_COMMAND pull rabbitmq:3                                              | ./boxes.sh
 if (( ! b_skipIntro )) ; then
     echo "# Variables declared here are available to"               > .env
     echo "# docker-compose on execution"                            >>.env
@@ -247,9 +258,9 @@ if (( ! b_skipIntro )) ; then
         echo "${ENV}=${REPO}"                                       >>.env
         if [[ $REPO != "local" ]] ; then
             echo ""                                                 | ./boxes.sh
-            CMD="docker pull ${REPO}/$CONTAINER"
+            CMD="$CONTAINER_COMMAND pull ${REPO}/$CONTAINER"
             printf "${LightCyan}%40s${Green}%-40s${Yellow}\n"       \
-                        "docker pull" " ${REPO}/$CONTAINER"         | ./boxes.sh
+                        "$CONTAINER_COMMAND pull" " ${REPO}/$CONTAINER"         | ./boxes.sh
             windowBottom
             sleep 1
             echo $CMD | sh                                          | ./boxes.sh -c
@@ -267,10 +278,10 @@ if (( ! b_skipIntro )) ; then
                 $CONTAINER != "chris_store"          && \
                 $CONTAINER != "docker-swift-onlyone"  ]] ; then
             windowBottom
-            CMD="docker run --rm ${REPO}/$CONTAINER --version"
+            CMD="$CONTAINER_COMMAND run --rm ${REPO}/$CONTAINER --version"
             if [[   $CONTAINER == "pfcon"            || \
                     $CONTAINER == "pman"  ]] ; then
-              CMD="docker run --rm --entrypoint $CONTAINER ${REPO}/$CONTAINER --version"
+              CMD="$CONTAINER_COMMAND run --rm --entrypoint $CONTAINER ${REPO}/$CONTAINER --version"
             fi
             Ver=$(echo $CMD | sh | grep Version)
             echo -en "\033[2A\033[2K"
@@ -316,15 +327,19 @@ windowBottom
 
 if [[ $ORCHESTRATOR == swarm ]]; then
     title -d 1  "Creating overlay network: remote"
-    echo "docker network create -d overlay --attachable remote"   | ./boxes.sh ${LightCyan}
-    docker network create -d overlay --attachable remote
+    echo "$CONTAINER_COMMAND network create -d overlay --attachable remote"   | ./boxes.sh ${LightCyan}
+    if [[ $CONTAINER_COMMAND == "docker" ]]; then
+        $CONTAINER_COMMAND network create -d overlay --attachable remote
+    else
+        $CONTAINER_COMMAND network create -d overlay remote
+    fi
     windowBottom
 fi
 
 title -d 1 "Starting remote pfcon containerized environment on $ORCHESTRATOR"
     if [[ $ORCHESTRATOR == swarm ]]; then
-        echo "docker stack deploy -c swarm/docker-compose_remote_v${SWARM_VERSION}.yml pfcon_stack"   | ./boxes.sh ${LightCyan}
-        docker stack deploy -c swarm/docker-compose_remote_v${SWARM_VERSION}.yml pfcon_stack
+        echo "$CONTAINER_COMMAND stack deploy -c swarm/docker-compose_remote_v${SWARM_VERSION}.yml pfcon_stack"   | ./boxes.sh ${LightCyan}
+        $CONTAINER_COMMAND stack deploy -c swarm/docker-compose_remote_v${SWARM_VERSION}.yml pfcon_stack
     elif [[ $ORCHESTRATOR == kubernetes ]]; then
       echo "envsubst < kubernetes/pfcon_dev.yaml | kubectl apply -f -"           | ./boxes.sh ${LightCyan}
       envsubst < kubernetes/remote.yaml | kubectl apply -f -
@@ -336,7 +351,7 @@ title -d 1 "Waiting for remote pfcon containers to start running on $ORCHESTRATO
     for i in {1..50}; do
         sleep 5
         if [[ $ORCHESTRATOR == swarm ]]; then
-            pfcon=$(docker ps -f name=pfcon_stack_pfcon.1 -q)
+            pfcon=$($CONTAINER_COMMAND ps -f name=pfcon_stack_pfcon.1 -q)
         elif [[ $ORCHESTRATOR == kubernetes ]]; then
             pfcon=$(kubectl get pods --selector="app=pfcon,env=production" --field-selector=status.phase=Running --output=jsonpath='{.items[*].metadata.name}')
         fi
@@ -497,8 +512,8 @@ STEP=$(expr $STEP + 1 )
 STEP=$(expr $STEP + 4 )
 title -d 1 "Automatically creating two unlocked pipelines in the ChRIS STORE" \
                         "(unmutable and available to all users)"
-    S3_PLUGIN_VER=$(docker run --rm fnndsc/pl-s3retrieve s3retrieve --version)
-    SIMPLEDS_PLUGIN_VER=$(docker run --rm fnndsc/pl-simpledsapp simpledsapp --version)
+    S3_PLUGIN_VER=$($CONTAINER_COMMAND run --rm fnndsc/pl-s3retrieve s3retrieve --version)
+    SIMPLEDS_PLUGIN_VER=$($CONTAINER_COMMAND run --rm fnndsc/pl-simpledsapp simpledsapp --version)
 
     PIPELINE_NAME="s3retrieve_v${S3_PLUGIN_VER}-simpledsapp_v${SIMPLEDS_PLUGIN_VER}"
     printf "%20s${LightBlue}%60s${NC}\n"                            \
@@ -567,6 +582,6 @@ windowBottom
 
 if (( !  b_norestartinteractive_chris_dev )) ; then
     title -d 1 "Attaching interactive terminal (ctrl-c to detach)"
-    chris_dev=$(docker ps -f name=chris_dev_1 -q)
-    docker attach --detach-keys ctrl-c $chris_dev
+    chris_dev=$($CONTAINER_COMMAND ps -f name=chris_dev_1 -q)
+    $CONTAINER_COMMAND attach --detach-keys ctrl-c $chris_dev
 fi

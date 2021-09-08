@@ -8,6 +8,7 @@
 #
 #   unmake.sh                     [-h]
 #                                 [-O <swarm|kubernetes>]
+#                                 [-c <docker|podman>]
 #                                 [-V <3.7|3.0>]
 #                                 [-S <storeBase>]
 #
@@ -34,6 +35,10 @@
 #
 #       Optional print usage help.
 #
+#   -c <docker|podman>
+#
+#       Explicitly set to user the docker or podman command. Default is docker. 
+#
 #   -V <3.7|3.0>
 #
 #       Explicitly set docker-swarm version other than 3.7 (see https://docs.docker.com/compose/compose-file/compose-versioning/#version-37).
@@ -57,7 +62,7 @@ CONTAINER_COMMAND=docker
 SWARM_VERSION=3.7
 
 print_usage () {
-    echo "Usage: ./unmake.sh [-h] [-V <3.7|3.0>] [-O <swarm|kubernetes>] [-S <storeBase>]"
+    echo "Usage: ./unmake.sh [-h] [-c <docker|podman>] [-V <3.7|3.0>] [-O <swarm|kubernetes>] [-S <storeBase>]"
     exit 1
 }
 
