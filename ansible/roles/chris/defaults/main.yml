@@ -1,0 +1,80 @@
+---
+APP_NAME: ChRIS
+APP_NETWORK: "ChRIS"
+APP_PYTHON: "{{ '/usr/bin/python' if lookup('file', '/usr/bin/python', errors='ignore') else '/usr/bin/python3' }}"
+APP_SRC: "/usr/local/src/ChRIS_ultron_backend"
+APP_OPT: "/opt/{{ APP_NAME }}"
+APP_VAR: "/var/{{ APP_NAME }}"
+APP_DATA: "{{ APP_VAR }}/data"
+APP_DEV_DB_DATA: "{{ APP_SRC }}/chris_dev_db_data"
+APP_STORE_DB_DATA: "{{ APP_SRC }}/chris_store_db_data"
+APP_SWIFT_DATA: "{{ APP_SRC }}/swift_storage_dev"
+APP_QUEUE_DATA: "{{ APP_SRC }}/queue_data"
+APP_CONF: "{{ APP_OPT }}/conf/zoo.cfg"
+APP_REPO: "https://github.com/FNNDSC/ChRIS_ultron_backEnd.git"
+APP_VERSION: 
+APP_TAG: ""
+APP_USER: "root"
+APP_SECRET_KEY: "w1kxu^l=@pnsf!5piqz6!!5kdcdpo79y6jebbp+2244yjm*#+k"
+
+PMAN_NAME: "{{ APP_NAME }}_pman"
+PMAN_IMAGE: "fnndsc/pman"
+PMAN_VERSION: "latest"
+PMAN_SERVICE: "{{ PMAN_NAME }}"
+PMAN_SYSTEMD: "/usr/lib/systemd/system/{{ PMAN_SERVICE }}.service"
+
+PFCON_NAME: "{{ APP_NAME }}_pfcon"
+PFCON_IMAGE: "fnndsc/pfcon"
+PFCON_VERSION: "latest"
+PFCON_SERVICE: "{{ PFCON_NAME }}"
+PFCON_SYSTEMD: "/usr/lib/systemd/system/{{ PFCON_SERVICE }}.service"
+
+DEV_NAME: "{{ APP_NAME }}_dev"
+DEV_IMAGE: "fnndsc/chris"
+DEV_VERSION: "dev"
+DEV_SERVICE: "{{ DEV_NAME }}"
+DEV_SYSTEMD: "/usr/lib/systemd/system/{{ DEV_SERVICE }}.service"
+
+DEV_DB_NAME: "{{ APP_NAME }}_dev_db"
+DEV_DB_IMAGE: "postgres"
+DEV_DB_VERSION: "13"
+DEV_DB_SERVICE: "{{ DEV_DB_NAME }}"
+DEV_DB_SYSTEMD: "/usr/lib/systemd/system/{{ DEV_DB_SERVICE }}.service"
+DEV_DB_PORT: "12032"
+DEV_DB_DATABASE: "chris_dev"
+DEV_DB_USER: "chris"
+DEV_DB_PASSWORD: "Chris1234"
+
+STORE_DB_NAME: "{{ APP_NAME }}_store_db"
+STORE_DB_IMAGE: "postgres"
+STORE_DB_VERSION: "13"
+STORE_DB_SERVICE: "{{ STORE_DB_NAME }}"
+STORE_DB_SYSTEMD: "/usr/lib/systemd/system/{{ STORE_DB_SERVICE }}.service"
+STORE_DB_PORT: "12033"
+STORE_DB_DATABASE: "chris_store"
+STORE_DB_USER: "chris"
+STORE_DB_PASSWORD: "Chris1234"
+
+SWIFT_NAME: "{{ APP_NAME }}_swift"
+SWIFT_IMAGE: "fnndsc/docker-swift-onlyone"
+SWIFT_VERSION: "latest"
+SWIFT_SERVICE: "{{ SWIFT_NAME }}"
+SWIFT_SYSTEMD: "/usr/lib/systemd/system/{{ SWIFT_SERVICE }}.service"
+SWIFT_USERNAME: "chris:chris1234"
+SWIFT_KEY: "testing"
+SWIFT_PORT: "12280"
+
+QUEUE_NAME: "{{ APP_NAME }}_queue"
+QUEUE_IMAGE: "rabbitmq"
+QUEUE_VERSION: "3"
+QUEUE_SERVICE: "{{ QUEUE_NAME }}"
+QUEUE_SYSTEMD: "/usr/lib/systemd/system/{{ QUEUE_SERVICE }}.service"
+QUEUE_HOSTNAME: "queue"
+
+####################
+# Ansible defaults #
+####################
+
+# Add to an ansible-vault the username of your user on your computer (echo $HOSTNAME). 
+USER_NAME: "{{ lookup('env', 'USER') }}"
+

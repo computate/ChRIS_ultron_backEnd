@@ -1,0 +1,14 @@
+[Unit]
+Description=
+After=network.service
+
+[Service]
+Type=simple
+User={{ APP_USER }}
+ExecStart=/usr/bin/podman run --name {{ DEV_NAME }} --network {{ APP_NETWORK }} -v {{ APP_SRC }}/chris_backend:/home/localuser/chris_backend:Z -p 8000:8000 --rm -e "DJANGO_SETTINGS_MODULE=config.settings.local" -e "DJANGO_DB_MIGRATE=on" -e "DJANGO_COLLECTSTATIC=off" {{ DEV_IMAGE }}:{{ DEV_VERSION }} python manage.py runserver 0.0.0.0:8000
+ExecStop=/usr/bin/podman rm {{ DEV_NAME }} -f
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+

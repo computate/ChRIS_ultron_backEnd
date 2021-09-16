@@ -8,7 +8,7 @@
 #
 #   make.sh                     [-h] [-i] [-s] [-U] [-I]        \
 #                               [-c <docker|podman>]            \
-#                               [-O <swarm|kubernetes>]         \
+#                               [-O <swarm|kubernetes|podman>]  \
 #                               [-V <3.7|3.0>]                  \
 #                               [-P <hostIp>]                   \
 #                               [-S <storeBase>]                \
@@ -75,7 +75,7 @@
 #
 #       Explicitly set the container command. Default is docker. 
 #
-#   -O <swarm|kubernetes>
+#   -O <swarm|kubernetes|podman>
 #
 #       Explicitly set the orchestrator. Default is swarm.
 #
@@ -148,7 +148,7 @@ if [[ -f .env ]] ; then
 fi
 
 print_usage () {
-    echo "Usage: ./make.sh [-h] [-i] [-s] [-U] [-I] [-c] <docker|podman> [-O <swarm|kubernetes>] [-V <3.7|3.0>] [-P <hostIp>] [-S <storeBase>] [local|fnndsc[:dev]]"
+    echo "Usage: ./make.sh [-h] [-i] [-s] [-U] [-I] [-c] <docker|podman> [-O <swarm|kubernetes|podman>] [-V <3.7|3.0>] [-P <hostIp>] [-S <storeBase>] [local|fnndsc[:dev]]"
     exit 1
 }
 
@@ -165,7 +165,7 @@ while getopts ":hisUIO:c:V:P:S:" opt; do
         I) b_skipIntegrationTests=1
           ;;
         O) ORCHESTRATOR=$OPTARG
-           if ! [[ "$ORCHESTRATOR" =~ ^(swarm|kubernetes)$ ]]; then
+           if ! [[ "$ORCHESTRATOR" =~ ^(swarm|kubernetes|podman)$ ]]; then
               echo "Invalid value for option -- O"
               print_usage
            fi
@@ -175,6 +175,7 @@ while getopts ":hisUIO:c:V:P:S:" opt; do
               echo "Invalid value for option -- c"
               print_usage
            fi
+           ;;
         V) SWARM_VERSION=$OPTARG
            ;;
         P) HOSTIP=$OPTARG
