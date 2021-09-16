@@ -1,0 +1,14 @@
+[Unit]
+Description=
+After=network.service
+
+[Service]
+Type=simple
+User={{ APP_USER }}
+ExecStart=/usr/bin/podman run --name {{ PFCON_NAME }} --pod {{ PFCON_POD }} -v {{ APP_DATA }}:/home/localuser/storeBase:Z --rm -e "SECRET_KEY={{ APP_SECRET_KEY }}" -e "COMPUTE_SERVICE_URL=http://{{ APP_NAME }}_pman:5010/api/v1/" {{ PFCON_IMAGE }}:{{ PFCON_VERSION }} gunicorn -w 5 -b 0.0.0.0:30005 -t 200 pfcon.wsgi:application
+ExecStop=/usr/bin/podman rm {{ PFCON_NAME }} -f
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+

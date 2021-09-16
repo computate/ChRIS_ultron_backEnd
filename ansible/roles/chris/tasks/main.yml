@@ -1,0 +1,359 @@
+---
+- name: "install podman dependency"
+  package:
+    name:
+      - python3
+      - python3-pip
+      - libselinux-python
+      - libsemanage-python
+      - podman
+    state: present
+  become: true
+  when: ansible_pkg_mgr != 'homebrew' and APP_PYTHON == '/usr/bin/python'
+  vars:
+    ansible_python_interpreter: "{{ APP_PYTHON }}"
+- name: "install podman dependency"
+  package:
+    name:
+      - python3
+      - python3-pip
+      - python3-libselinux
+      - python3-libsemanage
+      - podman
+    state: present
+  become: true
+  when: ansible_pkg_mgr != 'homebrew' and APP_PYTHON == '/usr/bin/python3'
+  vars:
+    ansible_python_interpreter: "{{ APP_PYTHON }}"
+- name: Set container_manage_cgroup flag on to run podman containers as systemd services and keep it persistent across reboots
+  ansible.posix.seboolean:
+    name: container_manage_cgroup
+    state: true
+    persistent: true
+  become: true
+  vars:
+    ansible_python_interpreter: "{{ APP_PYTHON }}"
+
+##########################
+# Setup Data Directories #
+##########################
+
+- name: Create the {{ APP_NAME }} data directory {{ APP_DATA }}. 
+  file:
+    name: "{{ APP_DATA }}"
+    state: directory
+    owner: "{{ APP_USER }}"
+    mode: 0777
+  become: true
+- name: set SELinux permissions on {{ APP_DATA }}
+  sefcontext:
+    target: "{{ APP_DATA }}"
+    setype: container_file_t
+  become: true
+  vars:
+    ansible_python_interpreter: "{{ APP_PYTHON }}"
+- name: reload SELinux policy to ensure that {{ APP_NAME }} is executable
+  command: "restorecon -irv {{ APP_DATA }}"
+  become: true
+
+- name: Create the {{ APP_NAME }} data directory {{ APP_DEV_DB_DATA }}. 
+  file:
+    name: "{{ APP_DEV_DB_DATA }}"
+    state: directory
+    owner: "{{ APP_USER }}"
+    mode: 0777
+  become: true
+- name: set SELinux permissions on {{ APP_DEV_DB_DATA }}
+  sefcontext:
+    target: "{{ APP_DEV_DB_DATA }}"
+    setype: container_file_t
+  become: true
+  vars:
+    ansible_python_interpreter: "{{ APP_PYTHON }}"
+- name: reload SELinux policy to ensure that {{ APP_NAME }} is executable
+  command: "restorecon -irv {{ APP_DEV_DB_DATA }}"
+  become: true
+
+- name: Create the {{ APP_NAME }} data directory {{ APP_STORE_DB_DATA }}. 
+  file:
+    name: "{{ APP_STORE_DB_DATA }}"
+    state: directory
+    owner: "{{ APP_USER }}"
+    mode: 0777
+  become: true
+- name: set SELinux permissions on {{ APP_STORE_DB_DATA }}
+  sefcontext:
+    target: "{{ APP_STORE_DB_DATA }}"
+    setype: container_file_t
+  become: true
+  vars:
+    ansible_python_interpreter: "{{ APP_PYTHON }}"
+- name: reload SELinux policy to ensure that {{ APP_NAME }} is executable
+  command: "restorecon -irv {{ APP_STORE_DB_DATA }}"
+  become: true
+
+- name: Create the {{ APP_NAME }} data directory {{ APP_SWIFT_DATA }}. 
+  file:
+    name: "{{ APP_SWIFT_DATA }}"
+    state: directory
+    owner: "{{ APP_USER }}"
+    mode: 0777
+  become: true
+- name: set SELinux permissions on {{ APP_SWIFT_DATA }}
+  sefcontext:
+    target: "{{ APP_SWIFT_DATA }}"
+    setype: container_file_t
+  become: true
+  vars:
+    ansible_python_interpreter: "{{ APP_PYTHON }}"
+- name: reload SELinux policy to ensure that {{ APP_NAME }} is executable
+  command: "restorecon -irv {{ APP_SWIFT_DATA }}"
+  become: true
+
+- name: Create the {{ APP_NAME }} data directory {{ APP_QUEUE_DATA }}. 
+  file:
+    name: "{{ APP_QUEUE_DATA }}"
+    state: directory
+    owner: "{{ APP_USER }}"
+    mode: 0777
+  become: true
+- name: set SELinux permissions on {{ APP_QUEUE_DATA }}
+  sefcontext:
+    target: "{{ APP_QUEUE_DATA }}"
+    setype: container_file_t
+  become: true
+  vars:
+    ansible_python_interpreter: "{{ APP_PYTHON }}"
+- name: reload SELinux policy to ensure that {{ APP_NAME }} is executable
+  command: "restorecon -irv {{ APP_QUEUE_DATA }}"
+  become: true
+
+##########
+# Podman #
+##########
+
+- name: Create a podman network {{ APP_NETWORK }}
+  containers.podman.podman_network:
+    name: "{{ APP_NETWORK }}"
+    state: present
+  become: true
+
+- name: Create a podman pod {{ PMAN_POD }}
+  containers.podman.podman_network:
+    name: "{{ PMAN_POD }}"
+    network:
+      - "{{ APP_NETWORK }}"
+    state: started
+  become: true
+- name: Create a podman pod {{ PFCON_POD }}
+  containers.podman.podman_network:
+    name: "{{ PFCON_POD }}"
+    network:
+      - "{{ APP_NETWORK }}"
+    publish:
+      - "{{ PFCON_PORT }}:30005"
+    state: started
+  become: true
+- name: Create a podman pod {{ DEV_DB_POD }}
+  containers.podman.podman_network:
+    name: "{{ DEV_DB_POD }}"
+    network:
+      - "{{ APP_NETWORK }}"
+    publish:
+      - "{{ DEV_DB_PORT }}:5432"
+    state: started
+  become: true
+- name: Create a podman pod {{ STORE_DB_POD }}
+  containers.podman.podman_network:
+    name: "{{ STORE_DB_POD }}"
+    network:
+      - "{{ APP_NETWORK }}"
+    publish:
+      - "{{ STORE_DB_PORT }}:5432"
+    state: started
+  become: true
+- name: Create a podman pod {{ SWIFT_POD }}
+  containers.podman.podman_network:
+    name: "{{ SWIFT_POD }}"
+    network:
+      - "{{ APP_NETWORK }}"
+    publish:
+      - "{{ SWIFT_PORT }}:8080"
+    state: started
+  become: true
+- name: Create a podman pod {{ QUEUE_POD }}
+  containers.podman.podman_network:
+    name: "{{ QUEUE_POD }}"
+    network:
+      - "{{ APP_NETWORK }}"
+    state: started
+  become: true
+- name: Create a podman pod {{ DEV_POD }}
+  containers.podman.podman_network:
+    name: "{{ DEV_POD }}"
+    network:
+      - "{{ APP_NETWORK }}"
+    publish:
+      - "{{ DEV_PORT }}:8000"
+    state: started
+  become: true
+- name: Create a podman pod {{ STORE_POD }}
+  containers.podman.podman_network:
+    name: "{{ STORE_POD }}"
+    network:
+      - "{{ APP_NETWORK }}"
+    publish:
+      - "{{ STORE_PORT }}:8010"
+    state: started
+  become: true
+- name: Create a podman pod {{ SCHEDULER_POD }}
+  containers.podman.podman_network:
+    name: "{{ SCHEDULER_POD }}"
+    network:
+      - "{{ APP_NETWORK }}"
+    state: started
+  become: true
+
+###########################
+# Create Systemd Services #
+###########################
+
+- name: Create the {{ PMAN_NAME }} systemd service {{ PMAN_SYSTEMD }}. 
+  template:
+    src: chris_pman.service
+    dest: "{{ PMAN_SYSTEMD }}"
+  become: true
+  when: ansible_pkg_mgr != 'homebrew'
+- name: Create the {{ PFCON_NAME }} systemd service {{ PFCON_SYSTEMD }}. 
+  template:
+    src: chris_pfcon.service
+    dest: "{{ PFCON_SYSTEMD }}"
+  become: true
+  when: ansible_pkg_mgr != 'homebrew'
+- name: Create the {{ DEV_DB_NAME }} systemd service {{ DEV_DB_SYSTEMD }}. 
+  template:
+    src: chris_dev_db.service
+    dest: "{{ DEV_DB_SYSTEMD }}"
+  become: true
+  when: ansible_pkg_mgr != 'homebrew'
+- name: Create the {{ STORE_DB_NAME }} systemd service {{ STORE_DB_SYSTEMD }}. 
+  template:
+    src: chris_store_db.service
+    dest: "{{ STORE_DB_SYSTEMD }}"
+  become: true
+  when: ansible_pkg_mgr != 'homebrew'
+- name: Create the {{ SWIFT_NAME }} systemd service {{ SWIFT_SYSTEMD }}. 
+  template:
+    src: chris_swift.service
+    dest: "{{ SWIFT_SYSTEMD }}"
+  become: true
+  when: ansible_pkg_mgr != 'homebrew'
+- name: Create the {{ QUEUE_NAME }} systemd service {{ QUEUE_SYSTEMD }}. 
+  template:
+    src: chris_queue.service
+    dest: "{{ QUEUE_SYSTEMD }}"
+  become: true
+  when: ansible_pkg_mgr != 'homebrew'
+- name: Create the {{ DEV_NAME }} systemd service {{ DEV_SYSTEMD }}. 
+  template:
+    src: chris_dev.service
+    dest: "{{ DEV_SYSTEMD }}"
+  become: true
+  when: ansible_pkg_mgr != 'homebrew'
+- name: Create the {{ STORE_NAME }} systemd service {{ STORE_SYSTEMD }}. 
+  template:
+    src: chris_store.service
+    dest: "{{ STORE_SYSTEMD }}"
+  become: true
+  when: ansible_pkg_mgr != 'homebrew'
+- name: Create the {{ SCHEDULER_NAME }} systemd service {{ SCHEDULER_SYSTEMD }}. 
+  template:
+    src: chris_scheduler.service
+    dest: "{{ SCHEDULER_SYSTEMD }}"
+  become: true
+  when: ansible_pkg_mgr != 'homebrew'
+
+- name: Reload the services. 
+  systemd:
+    daemon_reload: true
+  become: true
+  when: ansible_pkg_mgr != 'homebrew'
+
+##########################
+# Start Systemd Services #
+##########################
+
+- name: Start and enable the {{ PMAN_SERVICE }} service. 
+  service:
+    name: "{{ PMAN_SERVICE }}"
+    enabled: true
+    state: started
+  become: true
+- name: Start and enable the {{ PFCON_SERVICE }} service. 
+  service:
+    name: "{{ PFCON_SERVICE }}"
+    enabled: true
+    state: started
+  become: true
+  when: ansible_pkg_mgr != 'homebrew'
+- name: Start and enable the {{ DEV_DB_SERVICE }} service. 
+  service:
+    name: "{{ DEV_DB_SERVICE }}"
+    enabled: true
+    state: started
+  become: true
+  when: ansible_pkg_mgr != 'homebrew'
+- name: Start and enable the {{ STORE_DB_SERVICE }} service. 
+  service:
+    name: "{{ STORE_DB_SERVICE }}"
+    enabled: true
+    state: started
+  become: true
+  when: ansible_pkg_mgr != 'homebrew'
+- name: Start and enable the {{ SWIFT_SERVICE }} service. 
+  service:
+    name: "{{ SWIFT_SERVICE }}"
+    enabled: true
+    state: started
+  become: true
+  when: ansible_pkg_mgr != 'homebrew'
+- name: Start and enable the {{ QUEUE_SERVICE }} service. 
+  service:
+    name: "{{ QUEUE_SERVICE }}"
+    enabled: true
+    state: started
+  become: true
+  when: ansible_pkg_mgr != 'homebrew'
+- name: Start and enable the {{ DEV_SERVICE }} service.  service:
+    name: "{{ DEV_SERVICE }}"
+    enabled: true
+    state: started
+  become: true
+  when: ansible_pkg_mgr != 'homebrew'
+- name: Start and enable the {{ STORE_SERVICE }} service. 
+  service:
+    name: "{{ STORE_SERVICE }}"
+    enabled: true
+    state: started
+  become: true
+  when: ansible_pkg_mgr != 'homebrew'
+- name: Start and enable the {{ SCHEDULER_SERVICE }} service. 
+  service:
+    name: "{{ SCHEDULER_SERVICE }}"
+    enabled: true
+    state: started
+  become: true
+  when: ansible_pkg_mgr != 'homebrew'
+
+- name: Create the {{ APP_NAME }} launchd service.
+  template:
+    src: solr_launchd_service.j2
+    dest: "~/Library/LaunchAgents/org.solr.plist"
+  when: ansible_pkg_mgr == 'homebrew'
+- name: Load the {{ APP_NAME }} launchd service.
+  shell: launchctl load ~/Library/LaunchAgents/org.solr.plist
+  when: ansible_pkg_mgr == 'homebrew'
+- name: Start the {{ APP_NAME }} launchd service.
+  shell: launchctl start org.solr
+  when: ansible_pkg_mgr == 'homebrew'
+  changed_when: false

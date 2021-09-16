@@ -1,0 +1,14 @@
+[Unit]
+Description=
+After=network.service
+
+[Service]
+Type=simple
+User={{ APP_USER }}
+ExecStart=/usr/bin/podman run --name {{ PMAN_NAME }} --pod {{ PMAN_POD }} --rm -e "STOREBASE={{ APP_DATA }}" -e "SECRET_KEY={{ APP_SECRET_KEY }}" {{ PMAN_IMAGE }}:{{ PMAN_VERSION }}
+ExecStop=/usr/bin/podman rm {{ PMAN_NAME }} -f
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+
