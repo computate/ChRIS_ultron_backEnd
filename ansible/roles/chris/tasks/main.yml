@@ -138,83 +138,17 @@
     state: present
   become: true
 
-- name: Create a podman pod {{ PMAN_POD }}
+- name: Create a podman pod {{ APP_POD }}
   containers.podman.podman_pod:
-    name: "{{ PMAN_POD }}"
-    network: "{{ APP_NETWORK }}"
-    state: started
-  become: true
-- name: Create a podman pod {{ PFCON_POD }}
-  containers.podman.podman_pod:
-    name: "{{ PFCON_POD }}"
+    name: "{{ APP_POD }}"
     network: "{{ APP_NETWORK }}"
     publish:
       - "{{ PFCON_PORT }}:30005"
-    state: started
-  become: true
-- name: Create a podman pod {{ DEV_DB_POD }}
-  containers.podman.podman_pod:
-    name: "{{ DEV_DB_POD }}"
-    network: "{{ APP_NETWORK }}"
-    publish:
       - "{{ DEV_DB_PORT }}:5432"
-    state: started
-  become: true
-- name: Create a podman pod {{ STORE_DB_POD }}
-  containers.podman.podman_pod:
-    name: "{{ STORE_DB_POD }}"
-    network: "{{ APP_NETWORK }}"
-    publish:
       - "{{ STORE_DB_PORT }}:5432"
-    state: started
-  become: true
-- name: Create a podman pod {{ SWIFT_POD }}
-  containers.podman.podman_pod:
-    name: "{{ SWIFT_POD }}"
-    network: "{{ APP_NETWORK }}"
-    publish:
       - "{{ SWIFT_PORT }}:8080"
-    state: started
-  become: true
-- name: Create a podman pod {{ QUEUE_POD }}
-  containers.podman.podman_pod:
-    name: "{{ QUEUE_POD }}"
-    network: "{{ APP_NETWORK }}"
-    state: started
-  become: true
-- name: Create a podman pod {{ DEV_POD }}
-  containers.podman.podman_pod:
-    name: "{{ DEV_POD }}"
-    network: "{{ APP_NETWORK }}"
-    publish:
       - "{{ DEV_PORT }}:8000"
-    state: started
-  become: true
-- name: Create a podman pod {{ STORE_POD }}
-  containers.podman.podman_pod:
-    name: "{{ STORE_POD }}"
-    network: "{{ APP_NETWORK }}"
-    publish:
       - "{{ STORE_PORT }}:8010"
-    state: started
-  become: true
-- name: Create a podman pod {{ SCHEDULER_POD }}
-  containers.podman.podman_pod:
-    name: "{{ SCHEDULER_POD }}"
-    network: "{{ APP_NETWORK }}"
-    state: started
-  become: true
-- name: Create a podman pod {{ WORKER_PERIODIC_POD }}
-  containers.podman.podman_pod:
-    name: "{{ WORKER_PERIODIC_POD }}"
-    network: "{{ APP_NETWORK }}"
-    state: started
-  become: true
-- name: Create a podman pod {{ WORKER_POD }}
-  containers.podman.podman_pod:
-    name: "{{ WORKER_POD }}"
-    network: "{{ APP_NETWORK }}"
-    publish:
       - "6900-6905:6900-6905"
     state: started
   become: true
