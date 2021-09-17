@@ -12,6 +12,14 @@
   when: ansible_pkg_mgr != 'homebrew' and APP_PYTHON == '/usr/bin/python'
   vars:
     ansible_python_interpreter: "{{ APP_PYTHON }}"
+- name: "install python pip dependencies"
+  pip:
+    name: psycopg2-binary
+    state: present
+  become: true
+  when: ansible_pkg_mgr != 'homebrew' and APP_PYTHON == '/usr/bin/python3'
+  vars:
+    ansible_python_interpreter: "{{ APP_PYTHON }}"
 - name: "install podman dependency"
   package:
     name:
@@ -33,6 +41,26 @@
   become: true
   vars:
     ansible_python_interpreter: "{{ APP_PYTHON }}"
+
+####################
+# Install ChRIS UI #
+####################
+- name: Check for the {{ UI_NAME }} README file
+  stat:
+    path: "{{ UI_SRC }}/README.md"
+  register: UI_README
+- name: Create the {{ UI_NAME }} source directory {{ UI_SRC }}
+  file:
+    name: "{{ UI_SRC }}"
+    state: directory
+    owner: "{{ USER_NAME }}"
+  when: not UI_README.stat.exists
+  become: true
+- name: Clone the {{ UI_REPO }} source code into {{ UI_SRC }}
+  git:
+    repo: "{{ UI_REPO }}"
+    dest: "{{ UI_SRC }}"
+  when: not UI_README.stat.exists
 
 ##########################
 # Setup Data Directories #
@@ -74,24 +102,6 @@
   command: "restorecon -irv {{ APP_DEV_DB_DATA }}"
   become: true
 
-- name: Create the {{ APP_NAME }} data directory {{ APP_STORE_DB_DATA }}. 
-  file:
-    name: "{{ APP_STORE_DB_DATA }}"
-    state: directory
-    owner: "{{ APP_USER }}"
-    mode: 0777
-  become: true
-- name: set SELinux permissions on {{ APP_STORE_DB_DATA }}
-  sefcontext:
-    target: "{{ APP_STORE_DB_DATA }}"
-    setype: container_file_t
-  become: true
-  vars:
-    ansible_python_interpreter: "{{ APP_PYTHON }}"
-- name: reload SELinux policy to ensure that {{ APP_NAME }} is executable
-  command: "restorecon -irv {{ APP_STORE_DB_DATA }}"
-  become: true
-
 - name: Create the {{ APP_NAME }} data directory {{ APP_SWIFT_DATA }}. 
   file:
     name: "{{ APP_SWIFT_DATA }}"
@@ -128,6 +138,24 @@
   command: "restorecon -irv {{ APP_QUEUE_DATA }}"
   become: true
 
+- name: Create the {{ APP_NAME }} data directory {{ UI_DATA }}. 
+  file:
+    name: "{{ UI_DATA }}"
+    state: directory
+    owner: "{{ APP_USER }}"
+    mode: 0777
+  become: true
+- name: set SELinux permissions on {{ UI_DATA }}
+  sefcontext:
+    target: "{{ UI_DATA }}"
+    setype: container_file_t
+  become: true
+  vars:
+    ansible_python_interpreter: "{{ APP_PYTHON }}"
+- name: reload SELinux policy to ensure that {{ APP_NAME }} is executable
+  command: "restorecon -irv {{ UI_DATA }}"
+  become: true
+
 ##########
 # Podman #
 ##########
@@ -145,10 +173,10 @@
     publish:
       - "{{ PFCON_PORT }}:30005"
       - "{{ DEV_DB_PORT }}:5432"
-      - "{{ STORE_DB_PORT }}:5432"
       - "{{ SWIFT_PORT }}:8080"
       - "{{ DEV_PORT }}:8000"
       - "{{ STORE_PORT }}:8010"
+      - "{{ UI_PORT }}:3000"
       - "6900-6905:6900-6905"
     state: started
   become: true
@@ -173,12 +201,6 @@
   template:
     src: chris_dev_db.service
     dest: "{{ DEV_DB_SYSTEMD }}"
-  become: true
-  when: ansible_pkg_mgr != 'homebrew'
-- name: Create the {{ STORE_DB_NAME }} systemd service {{ STORE_DB_SYSTEMD }}. 
-  template:
-    src: chris_store_db.service
-    dest: "{{ STORE_DB_SYSTEMD }}"
   become: true
   when: ansible_pkg_mgr != 'homebrew'
 - name: Create the {{ SWIFT_NAME }} systemd service {{ SWIFT_SYSTEMD }}. 
@@ -223,6 +245,12 @@
     dest: "{{ WORKER_SYSTEMD }}"
   become: true
   when: ansible_pkg_mgr != 'homebrew'
+- name: Create the {{ UI_NAME }} systemd service {{ UI_SYSTEMD }}. 
+  template:
+    src: chris_ui.service
+    dest: "{{ UI_SYSTEMD }}"
+  become: true
+  when: ansible_pkg_mgr != 'homebrew'
 
 - name: Reload the services. 
   systemd:
@@ -254,13 +282,19 @@
     state: started
   become: true
   when: ansible_pkg_mgr != 'homebrew'
-- name: Start and enable the {{ STORE_DB_SERVICE }} service. 
-  service:
-    name: "{{ STORE_DB_SERVICE }}"
-    enabled: true
-    state: started
-  become: true
-  when: ansible_pkg_mgr != 'homebrew'
+- name: hold until Postgresql is up and running
+  wait_for:
+    host: "localhost"
+    port: "{{ DEV_DB_PORT }}"
+- name: Create store database
+  community.postgresql.postgresql_db:
+    name: "{{ STORE_DB_DATABASE }}"
+    owner: "{{ STORE_DB_USER }}"
+    login_user: "{{ DEV_DB_USER }}"
+    login_password: "{{ DEV_DB_PASSWORD }}"
+    port: "{{ DEV_DB_PORT }}"
+    login_host: "localhost"
+    db: postgres
 - name: Start and enable the {{ SWIFT_SERVICE }} service. 
   service:
     name: "{{ SWIFT_SERVICE }}"
@@ -310,6 +344,13 @@
     state: started
   become: true
   when: ansible_pkg_mgr != 'homebrew'
+- name: Start and enable the {{ UI_SERVICE }} service. 
+  service:
+    name: "{{ UI_SERVICE }}"
+    enabled: true
+    state: started
+  become: true
+  when: ansible_pkg_mgr != 'homebrew'
 
 - name: Create the {{ APP_NAME }} launchd service.
   template:
@@ -323,3 +364,4 @@
   shell: launchctl start org.solr
   when: ansible_pkg_mgr == 'homebrew'
   changed_when: false
+

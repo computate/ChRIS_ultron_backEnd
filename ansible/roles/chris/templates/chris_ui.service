@@ -1,0 +1,14 @@
+[Unit]
+Description=
+After=network.service
+
+[Service]
+Type=simple
+User={{ APP_USER }}
+ExecStart=/usr/bin/podman run --name {{ UI_NAME }} --pod {{ UI_POD }} -v {{ UI_DATA }}:/home/localuser --privileged --rm {{ UI_IMAGE }}:{{ UI_VERSION }}
+ExecStop=/usr/bin/podman rm {{ UI_NAME }} -f
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+
