@@ -5,8 +5,8 @@ After=network.service
 [Service]
 Type=simple
 User={{ APP_USER }}
-ExecStart=/usr/bin/podman run --name {{ DEV_NAME }} --pod {{ DEV_POD }} -v {{ APP_SRC }}/chris_backend:/home/localuser/chris_backend:Z --rm -e "DJANGO_SETTINGS_MODULE=config.settings.local" -e "DJANGO_DB_MIGRATE=on" -e "DJANGO_COLLECTSTATIC=off" {{ DEV_IMAGE }}:{{ DEV_VERSION }} python manage.py runserver 0.0.0.0:8000
-ExecStop=/usr/bin/podman rm {{ DEV_NAME }} -f
+ExecStart=/usr/bin/podman run --name {{ SCHEDULER_NAME }} --pod {{ SCHEDULER_POD }} -v {{ APP_BACKEND_DATA }}:/home/localuser/chris_backend:Z --rm -e "DJANGO_SETTINGS_MODULE=config.settings.local" -e "DJANGO_DB_MIGRATE=off" -e "DJANGO_COLLECTSTATIC=off" {{ SCHEDULER_IMAGE }}:{{ SCHEDULER_VERSION }} celery -A core beat -l info --pidfile /home/localuser/celerybeat.pid --scheduler django_celery_beat.schedulers:DatabaseScheduler
+ExecStop=/usr/bin/podman rm {{ SCHEDULER_NAME }} -f
 Restart=on-failure
 
 [Install]

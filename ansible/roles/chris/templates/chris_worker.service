@@ -1,0 +1,14 @@
+[Unit]
+Description=
+After=network.service
+
+[Service]
+Type=simple
+User={{ APP_USER }}
+ExecStart=/usr/bin/podman run --name {{ WORKER_NAME }} --pod {{ WORKER_POD }} -v {{ APP_BACKEND_DATA }}:/home/localuser/chris_backend:Z --rm -e "DJANGO_SETTINGS_MODULE=config.settings.local" -e "DJANGO_DB_MIGRATE=off" -e "DJANGO_COLLECTSTATIC=off" -e "CELERY_RDB_HOST=0.0.0.0" -e "CELERY_RDB_PORT=6900" {{ WORKER_IMAGE }}:{{ WORKER_VERSION }} celery -A core worker -c 3 -l DEBUG -Q main1,main2
+ExecStop=/usr/bin/podman rm {{ WORKER_NAME }} -f
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+

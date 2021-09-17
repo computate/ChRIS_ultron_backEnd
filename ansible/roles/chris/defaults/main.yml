@@ -32,6 +32,12 @@ PFCON_VERSION: "latest"
 PFCON_SERVICE: "{{ PFCON_NAME }}"
 PFCON_SYSTEMD: "/usr/lib/systemd/system/{{ PFCON_SERVICE }}.service"
 
+DEV_NAME: "{{ APP_NAME }}_dev"
+DEV_IMAGE: "fnndsc/chris"
+DEV_VERSION: "dev"
+DEV_SERVICE: "{{ DEV_NAME }}"
+DEV_SYSTEMD: "/usr/lib/systemd/system/{{ DEV_SERVICE }}.service"
+
 DEV_DB_NAME: "{{ APP_NAME }}_dev_db"
 DEV_DB_POD: "{{ DEV_DB_NAME }}"
 DEV_DB_IMAGE: "postgres"
@@ -93,6 +99,20 @@ SCHEDULER_IMAGE: "fnndsc/chris"
 SCHEDULER_VERSION: "dev"
 SCHEDULER_SERVICE: "{{ SCHEDULER_NAME }}"
 SCHEDULER_SYSTEMD: "/usr/lib/systemd/system/{{ SCHEDULER_SERVICE }}.service"
+
+WORKER_PERIODIC_NAME: "{{ APP_NAME }}_worker_periodic"
+WORKER_PERIODIC_POD: "{{ WORKER_PERIODIC_NAME }}"
+WORKER_PERIODIC_IMAGE: "fnndsc/chris"
+WORKER_PERIODIC_VERSION: "dev"
+WORKER_PERIODIC_SERVICE: "{{ WORKER_PERIODIC_NAME }}"
+WORKER_PERIODIC_SYSTEMD: "/usr/lib/systemd/system/{{ WORKER_PERIODIC_SERVICE }}.service"
+
+WORKER_NAME: "{{ APP_NAME }}_store"
+WORKER_POD: "{{ WORKER_NAME }}"
+WORKER_IMAGE: "fnndsc/chris"
+WORKER_VERSION: "dev"
+WORKER_SERVICE: "{{ WORKER_NAME }}"
+WORKER_SYSTEMD: "/usr/lib/systemd/system/{{ WORKER_SERVICE }}.service"
 
 ####################
 # Ansible defaults #
