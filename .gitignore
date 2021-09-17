@@ -19,4 +19,7 @@ chris_store_db_data/**
 chris_dev_db_data/**
 queue_data/**
 swift_storage_dev/**
+<<<<<<< HEAD
 chris_backend/**
+=======
+>>>>>>> cae8f09d98299538d74d64baf591edce76edc305

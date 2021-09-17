@@ -32,6 +32,12 @@ PFCON_VERSION: "latest"
 PFCON_SERVICE: "{{ PFCON_NAME }}"
 PFCON_SYSTEMD: "/usr/lib/systemd/system/{{ PFCON_SERVICE }}.service"
 
+DEV_NAME: "{{ APP_NAME }}_dev"
+DEV_IMAGE: "fnndsc/chris"
+DEV_VERSION: "dev"
+DEV_SERVICE: "{{ DEV_NAME }}"
+DEV_SYSTEMD: "/usr/lib/systemd/system/{{ DEV_SERVICE }}.service"
+
 DEV_DB_NAME: "{{ APP_NAME }}_dev_db"
 DEV_DB_POD: "{{ DEV_DB_NAME }}"
 DEV_DB_IMAGE: "postgres"
