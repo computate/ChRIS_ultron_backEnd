@@ -33,6 +33,30 @@
   when: ansible_pkg_mgr != 'homebrew' and APP_PYTHON == '/usr/bin/python3'
   vars:
     ansible_python_interpreter: "{{ APP_PYTHON }}"
+
+- name: Check podman version
+  shell: "podman -v | cut -d ' ' -f3 | cut -d '.' -f1"
+  register: PODMAN_MAJOR_VERSION_SHELL
+- name: Set podman major version
+  set_fact:
+    PODMAN_MAJOR_VERSION: "{{ PODMAN_MAJOR_VERSION_SHELL.stdout }}"
+- debug:
+    var: PODMAN_MAJOR_VERSION
+- name: Set network vars
+  set_fact:
+    APP_POD_NETWORK: "{{ (APP_NETWORK if (PODMAN_MAJOR_VERSION | int) > 1) | default(omit) }}"
+    APP_CONTAINER_NETWORK: "{{ ('host' if (PODMAN_MAJOR_VERSION | int) <= 1) | default(omit) }}"
+- debug:
+    var: APP_POD_NETWORK
+- debug:
+    var: APP_CONTAINER_NETWORK
+- name: Create a podman network {{ APP_NETWORK }}
+  containers.podman.podman_network:
+    name: "{{ APP_NETWORK }}"
+    state: present
+  become: true
+  when: APP_POD_NETWORK is defined
+
 - name: Set container_manage_cgroup flag on to run podman containers as systemd services and keep it persistent across reboots
   ansible.posix.seboolean:
     name: container_manage_cgroup
@@ -160,25 +184,6 @@
 # Podman #
 ##########
 
-- name: Check podman version
-  shell: "podman -v | cut -d ' ' -f3 | cut -d '.' -f1"
-  register: PODMAN_MAJOR_VERSION_SHELL
-- name: Set podman major version
-  set_fact:
-    PODMAN_MAJOR_VERSION: "{{ PODMAN_MAJOR_VERSION_SHELL.stdout }}"
-- debug:
-    var: PODMAN_MAJOR_VERSION
-- name: Set network vars
-  set_fact:
-    APP_POD_NETWORK: "{{ APP_NETWORK if (PODMAN_MAJOR_VERSION | int) > 1 else nil | default(omit) }}"
-    APP_CONTAINER_NETWORK: "{{ nil if (PODMAN_MAJOR_VERSION | int) > 1 else 'host' | default(omit) }}"
-- name: Create a podman network {{ APP_NETWORK }}
-  containers.podman.podman_network:
-    name: "{{ APP_NETWORK }}"
-    state: present
-  become: true
-  when: APP_POD_NETWORK is defined
-
 - name: Create a podman pod {{ APP_POD }} with network {{ APP_POD_NETWORK }}
   containers.podman.podman_pod:
     name: "{{ APP_POD }}"
@@ -296,9 +301,9 @@
     state: restarted
   become: true
   when: ansible_pkg_mgr != 'homebrew'
-- name: hold until Postgresql is up and running
+- name: hold until Postgresql is up and running at {{ DEV_DB_HOSTNAME }}:{{DEV_DB_PORT }}
   wait_for:
-    host: "localhost"
+    host: "{{ DEV_DB_HOSTNAME }}"
     port: "{{ DEV_DB_PORT }}"
 - name: Create dev database user
   postgresql_user:
@@ -307,7 +312,7 @@
     login_user: "{{ DEV_DB_BECOME_USER }}"
     login_password: "{{ DEV_DB_BECOME_PASSWORD }}"
     port: "{{ DEV_DB_PORT }}"
-    login_host: "localhost"
+    login_host: "{{ DEV_DB_HOSTNAME }}"
     db: postgres
 - name: Create store database user
   postgresql_user:
@@ -316,7 +321,7 @@
     login_user: "{{ DEV_DB_BECOME_USER }}"
     login_password: "{{ DEV_DB_BECOME_PASSWORD }}"
     port: "{{ DEV_DB_PORT }}"
-    login_host: "localhost"
+    login_host: "{{ DEV_DB_HOSTNAME }}"
     db: postgres
 - name: Create dev database
   community.postgresql.postgresql_db:
@@ -325,7 +330,7 @@
     login_user: "{{ DEV_DB_BECOME_USER }}"
     login_password: "{{ DEV_DB_BECOME_PASSWORD }}"
     port: "{{ DEV_DB_PORT }}"
-    login_host: "localhost"
+    login_host: "{{ DEV_DB_HOSTNAME }}"
     db: postgres
 - name: Create store database
   community.postgresql.postgresql_db:
@@ -334,7 +339,7 @@
     login_user: "{{ DEV_DB_BECOME_USER }}"
     login_password: "{{ DEV_DB_BECOME_PASSWORD }}"
     port: "{{ DEV_DB_PORT }}"
-    login_host: "localhost"
+    login_host: "{{ DEV_DB_HOSTNAME }}"
     db: postgres
 - name: Start and enable the {{ SWIFT_SERVICE }} service. 
   service:
