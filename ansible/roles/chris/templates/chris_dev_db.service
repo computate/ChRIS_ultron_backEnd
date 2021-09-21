@@ -5,7 +5,7 @@ After=network.service
 [Service]
 Type=simple
 User={{ APP_USER }}
-ExecStart=/usr/bin/podman run --name {{ DEV_DB_NAME }} --pod {{ DEV_DB_POD }} -v {{ APP_DEV_DB_DATA }}:/var/lib/postgresql/data --privileged --rm -e "POSTGRES_DB={{ DEV_DB_DATABASE }}" -e "POSTGRES_USER={{ DEV_DB_USER }}" -e "POSTGRES_PASSWORD={{ DEV_DB_PASSWORD }}" {{ DEV_DB_IMAGE }}:{{ DEV_DB_VERSION }}
+ExecStart=/usr/bin/podman run --name {{ DEV_DB_NAME }}{% if APP_POD_NETWORK is defined %} --pod {{ DEV_DB_HOSTNAME }}{% endif %}{% if APP_CONTAINER_NETWORK is defined %} --network {{ APP_CONTAINER_NETWORK }}{% endif %} -v {{ APP_DEV_DB_DATA }}:/var/lib/postgresql/data --privileged --rm -e "POSTGRES_DB={{ DEV_DB_DATABASE }}" -e "POSTGRES_USER={{ DEV_DB_USER }}" -e "POSTGRES_PASSWORD={{ DEV_DB_PASSWORD }}" {{ DEV_DB_IMAGE }}:{{ DEV_DB_VERSION }}
 ExecStop=/usr/bin/podman rm {{ DEV_DB_NAME }} -f
 Restart=on-failure
 

@@ -160,16 +160,29 @@
 # Podman #
 ##########
 
+- name: Check podman version
+  shell: "podman -v | cut -d ' ' -f3 | cut -d '.' -f1"
+  register: PODMAN_MAJOR_VERSION_SHELL
+- name: Set podman major version
+  set_fact:
+    PODMAN_MAJOR_VERSION: "{{ PODMAN_MAJOR_VERSION_SHELL.stdout }}"
+- debug:
+    var: PODMAN_MAJOR_VERSION
+- name: Set network vars
+  set_fact:
+    APP_POD_NETWORK: "{{ APP_NETWORK if (PODMAN_MAJOR_VERSION | int) > 1 else nil | default(omit) }}"
+    APP_CONTAINER_NETWORK: "{{ nil if (PODMAN_MAJOR_VERSION | int) > 1 else 'host' | default(omit) }}"
 - name: Create a podman network {{ APP_NETWORK }}
   containers.podman.podman_network:
     name: "{{ APP_NETWORK }}"
     state: present
   become: true
+  when: APP_POD_NETWORK is defined
 
-- name: Create a podman pod {{ APP_POD }}
+- name: Create a podman pod {{ APP_POD }} with network {{ APP_POD_NETWORK }}
   containers.podman.podman_pod:
     name: "{{ APP_POD }}"
-    network: "{{ APP_NETWORK }}"
+    network: "{{ APP_POD_NETWORK }}"
     publish:
       - "{{ PFCON_PORT }}:30005"
       - "{{ DEV_DB_PORT }}:5432"
@@ -180,6 +193,7 @@
       - "6900-6905:6900-6905"
     state: started
   become: true
+  when: APP_POD_NETWORK is defined
 
 ###########################
 # Create Systemd Services #
@@ -266,32 +280,59 @@
   service:
     name: "{{ PMAN_SERVICE }}"
     enabled: true
-    state: started
+    state: restarted
   become: true
 - name: Start and enable the {{ PFCON_SERVICE }} service. 
   service:
     name: "{{ PFCON_SERVICE }}"
     enabled: true
-    state: started
+    state: restarted
   become: true
   when: ansible_pkg_mgr != 'homebrew'
 - name: Start and enable the {{ DEV_DB_SERVICE }} service. 
   service:
     name: "{{ DEV_DB_SERVICE }}"
     enabled: true
-    state: started
+    state: restarted
   become: true
   when: ansible_pkg_mgr != 'homebrew'
 - name: hold until Postgresql is up and running
   wait_for:
     host: "localhost"
     port: "{{ DEV_DB_PORT }}"
+- name: Create dev database user
+  postgresql_user:
+    name: "{{ DEV_DB_USER }}"
+    password: "{{ DEV_DB_PASSWORD }}"
+    login_user: "{{ DEV_DB_BECOME_USER }}"
+    login_password: "{{ DEV_DB_BECOME_PASSWORD }}"
+    port: "{{ DEV_DB_PORT }}"
+    login_host: "localhost"
+    db: postgres
+- name: Create store database user
+  postgresql_user:
+    name: "{{ STORE_DB_USER }}"
+    password: "{{ STORE_DB_PASSWORD }}"
+    login_user: "{{ DEV_DB_BECOME_USER }}"
+    login_password: "{{ DEV_DB_BECOME_PASSWORD }}"
+    port: "{{ DEV_DB_PORT }}"
+    login_host: "localhost"
+    db: postgres
+- name: Create dev database
+  community.postgresql.postgresql_db:
+    name: "{{ DEV_DB_DATABASE }}"
+    owner: "{{ DEV_DB_USER }}"
+    login_user: "{{ DEV_DB_BECOME_USER }}"
+    login_password: "{{ DEV_DB_BECOME_PASSWORD }}"
+    port: "{{ DEV_DB_PORT }}"
+    login_host: "localhost"
+    db: postgres
 - name: Create store database
   community.postgresql.postgresql_db:
     name: "{{ STORE_DB_DATABASE }}"
     owner: "{{ STORE_DB_USER }}"
-    login_user: "{{ DEV_DB_USER }}"
-    login_password: "{{ DEV_DB_PASSWORD }}"
+    login_user: "{{ DEV_DB_BECOME_USER }}"
+    login_password: "{{ DEV_DB_BECOME_PASSWORD }}"
     port: "{{ DEV_DB_PORT }}"
     login_host: "localhost"
     db: postgres
@@ -299,56 +340,56 @@
   service:
     name: "{{ SWIFT_SERVICE }}"
     enabled: true
-    state: started
+    state: restarted
   become: true
   when: ansible_pkg_mgr != 'homebrew'
 - name: Start and enable the {{ QUEUE_SERVICE }} service. 
   service:
     name: "{{ QUEUE_SERVICE }}"
     enabled: true
-    state: started
+    state: restarted
   become: true
   when: ansible_pkg_mgr != 'homebrew'
 - name: Start and enable the {{ DEV_SERVICE }} service.
   service:
     name: "{{ DEV_SERVICE }}"
     enabled: true
-    state: started
+    state: restarted
   become: true
   when: ansible_pkg_mgr != 'homebrew'
 - name: Start and enable the {{ STORE_SERVICE }} service. 
   service:
     name: "{{ STORE_SERVICE }}"
     enabled: true
-    state: started
+    state: restarted
   become: true
   when: ansible_pkg_mgr != 'homebrew'
 - name: Start and enable the {{ SCHEDULER_SERVICE }} service. 
   service:
     name: "{{ SCHEDULER_SERVICE }}"
     enabled: true
-    state: started
+    state: restarted
   become: true
   when: ansible_pkg_mgr != 'homebrew'
 - name: Start and enable the {{ WORKER_PERIODIC_SERVICE }} service. 
   service:
     name: "{{ WORKER_PERIODIC_SERVICE }}"
     enabled: true
-    state: started
+    state: restarted
   become: true
   when: ansible_pkg_mgr != 'homebrew'
 - name: Start and enable the {{ WORKER_SERVICE }} service. 
   service:
     name: "{{ WORKER_SERVICE }}"
     enabled: true
-    state: started
+    state: restarted
   become: true
   when: ansible_pkg_mgr != 'homebrew'
 - name: Start and enable the {{ UI_SERVICE }} service. 
   service:
     name: "{{ UI_SERVICE }}"
     enabled: true
-    state: started
+    state: restarted
   become: true
   when: ansible_pkg_mgr != 'homebrew'
 
