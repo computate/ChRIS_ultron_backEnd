@@ -61,6 +61,17 @@ ORCHESTRATOR=swarm
 CONTAINER_COMMAND=docker
 SWARM_VERSION=3.7
 
+dc_check () {
+    STATUS=$1
+    if [[ $STATUS != "0" ]] ; then
+        echo -en "\033[2A\033[2K"
+        cat dc.out | sed -E 's/(.{80})/\1\n/g'                      | ./boxes.sh LightRed
+    else
+        echo -en "\033[2A\033[2K"
+        cat dc.out                                                  | ./boxes.sh White
+    fi
+}
+
 print_usage () {
     echo "Usage: ./unmake.sh [-h] [-c <docker|podman>] [-V <3.7|3.0>] [-O <swarm|kubernetes>] [-S <storeBase>]"
     exit 1
@@ -96,60 +107,95 @@ while getopts ":hO:c:S:V:" opt; do
 done
 shift $(($OPTIND - 1))
 
-title -d 1 "Setting global exports..."
-    echo -e "ORCHESTRATOR=$ORCHESTRATOR"              | ./boxes.sh
+title -d 1 "Setting global exports"
+    boxcenter "-= ORCHESTRATOR =-"
+    boxcenter "$ORCHESTRATOR"                                                    LightCyan
+    boxcenter ""
     if [ -z ${STOREBASE+x} ]; then
         STOREBASE=$(pwd)/CHRIS_REMOTE_FS
     fi
-    echo -e "exporting STOREBASE=$STOREBASE "         | ./boxes.sh
+    boxcenter "-= STOREBASE =-"
+    echo "$STOREBASE"                                               | ./boxes.sh LightCyan
     export STOREBASE=$STOREBASE
 
     if [[ $ORCHESTRATOR == kubernetes ]]; then
-        echo -e "exporting REMOTENETWORK=false "      | ./boxes.sh
+        echo -e "exporting REMOTENETWORK=false "                    | ./boxes.sh
         export REMOTENETWORK=false
     windowBottom
 fi
 windowBottom
 
-title -d 1 "Destroying remote pfcon containerized environment on $ORCHESTRATOR"
+title -d 1 "Destroying remote pfcon containerized environment on " \
+                                "-= $ORCHESTRATOR =-"
     if [[ $ORCHESTRATOR == swarm ]]; then
+<<<<<<< HEAD
         echo "$CONTAINER_COMMAND stack rm pfcon_stack"                               | ./boxes.sh ${LightCyan}
         $CONTAINER_COMMAND stack rm pfcon_stack
+=======
+        echo "$ docker stack rm pfcon_stack"                        | ./boxes.sh LightCyan
+        windowBottom
+        docker stack rm pfcon_stack &> dc.out
+>>>>>>> 2a882167029a1fee13ed5e5e5e162ce2ae0add1a
     elif [[ $ORCHESTRATOR == kubernetes ]]; then
-        echo "kubectl delete -f kubernetes/remote.yaml"                  | ./boxes.sh ${LightCyan}
-        kubectl delete -f kubernetes/remote.yaml
+        echo "$ kubectl delete -f kubernetes/remote.yaml"           | ./boxes.sh LightCyan
+        windowBottom
+        kubectl delete -f kubernetes/remote.yaml &> dc.out
     fi
-    echo "Removing STOREBASE tree $STOREBASE"                                | ./boxes.sh
+    dc_check $?
+    echo "$ rm -fr \$STOREBASE"                                     | ./boxes.sh LightCyan
     rm -fr $STOREBASE
 windowBottom
 
+<<<<<<< HEAD
 title -d 1 "Destroying CUBE containerized development environment" "from  ./docker-compose_dev_v${SWARM_VERSION}.yml"
     echo "Do you want to also remove persistent volumes? [y/n]"             | ./boxes.sh
+=======
+title -d 1 "Destroying CUBE containerized development environment" \
+                        "from  ./docker-compose_dev.yml"
+    echo "Do you want to also remove persistent volumes? [y/n]"     | ./boxes.sh White
+>>>>>>> 2a882167029a1fee13ed5e5e5e162ce2ae0add1a
     windowBottom
     old_stty_cfg=$(stty -g)
     stty raw -echo ; REPLY=$(head -c 1) ; stty $old_stty_cfg
     echo -en "\033[2A\033[2K"
     # read -p  " " -n 1 -r REPLY
     if [[ $REPLY =~ ^[Yy]$ ]] ; then
-        printf "Removing persistent volumes...\n"                           | ./boxes.sh ${Yellow}
-        echo "This might take a few minutes... please be patient."          | ./boxes.sh ${Yellow}
+        boxcenter ""
+        echo "Removing persistent volumes... please be patient."    | ./boxes.sh Yellow
+        boxcenter ""
+        echo "$ docker-compose -f docker-compose_dev.yml down -v"   | ./boxes.sh LightCyan         
         windowBottom
+<<<<<<< HEAD
         docker-compose -f docker-compose_dev_v${SWARM_VERSION}.yml down -v >& dc.out >/dev/null
         echo -en "\033[2A\033[2K"
         cat dc.out | ./boxes.sh
+=======
+        docker-compose -f docker-compose_dev.yml down -v >& dc.out
+        dc_check $?
+>>>>>>> 2a882167029a1fee13ed5e5e5e162ce2ae0add1a
     else
-        printf "Keeping persistent volumes...\n"                            | ./boxes.sh ${Yellow}
-        echo "This might take a few minutes... please be patient."          | ./boxes.sh ${Yellow}
+        echo "Keeping persistent volumes... please be patient."     | ./boxes.sh Yellow
         windowBottom
+<<<<<<< HEAD
         docker-compose -f docker-compose_dev_v${SWARM_VERSION}.yml down >& dc.out >/dev/null
         echo -en "\033[2A\033[2K"
         cat dc.out | ./boxes.sh
+=======
+        docker-compose -f docker-compose_dev.yml down >& dc.out
+        dc_check $?
+>>>>>>> 2a882167029a1fee13ed5e5e5e162ce2ae0add1a
     fi
 windowBottom
 
 if [[ $ORCHESTRATOR == swarm ]]; then
     title -d 1 "Removing overlay network: remote"
+    windowBottom
     sleep 2
+<<<<<<< HEAD
     $CONTAINER_COMMAND network rm remote
+=======
+    docker network rm remote &> dc.out
+    dc_check $?
+>>>>>>> 2a882167029a1fee13ed5e5e5e162ce2ae0add1a
     windowBottom
 fi

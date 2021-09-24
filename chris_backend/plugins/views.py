@@ -14,14 +14,15 @@ class ComputeResourceList(generics.ListAPIView):
     """
     A view for the collection of compute resources.
     """
+    http_method_names = ['get']
     serializer_class = ComputeResourceSerializer
     queryset = ComputeResource.objects.all()
     permission_classes = (permissions.IsAuthenticated,)
 
     def list(self, request, *args, **kwargs):
         """
-        Overriden to append document-level link relations and a collection+json
-        template to the response.
+        Overriden to append document-level link relations and a query list to the
+        response.
         """
         response = super(ComputeResourceList, self).list(request, *args, **kwargs)
         # append query list
@@ -36,6 +37,7 @@ class ComputeResourceListQuerySearch(generics.ListAPIView):
     """
     A view for the collection of compute resources resulting from a query search.
     """
+    http_method_names = ['get']
     serializer_class = ComputeResourceSerializer
     queryset = ComputeResource.objects.all()
     permission_classes = (permissions.IsAuthenticated,)
@@ -46,6 +48,7 @@ class ComputeResourceDetail(generics.RetrieveAPIView):
     """
     A compute resource view.
     """
+    http_method_names = ['get']
     serializer_class = ComputeResourceSerializer
     queryset = ComputeResource.objects.all()
     permission_classes = (permissions.IsAuthenticated,)
@@ -55,6 +58,7 @@ class PluginMetaList(generics.ListAPIView):
     """
     A view for the collection of plugin metas.
     """
+    http_method_names = ['get']
     queryset = PluginMeta.objects.all()
     serializer_class = PluginMetaSerializer
     permission_classes = (permissions.IsAuthenticated,)
@@ -78,6 +82,7 @@ class PluginMetaListQuerySearch(generics.ListAPIView):
     """
     A view for the collection of plugin metas resulting from a query search.
     """
+    http_method_names = ['get']
     serializer_class = PluginMetaSerializer
     queryset = PluginMeta.objects.all()
     permission_classes = (permissions.IsAuthenticated,)
@@ -88,6 +93,7 @@ class PluginMetaDetail(generics.RetrieveAPIView):
     """
     A plugin meta view.
     """
+    http_method_names = ['get']
     serializer_class = PluginMetaSerializer
     queryset = PluginMeta.objects.all()
     permission_classes = (permissions.IsAuthenticated,)
@@ -97,13 +103,15 @@ class PluginMetaPluginList(generics.ListAPIView):
     """
     A view for the collection of meta-specific plugins.
     """
+    http_method_names = ['get']
     queryset = PluginMeta.objects.all()
     serializer_class = PluginSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
     def list(self, request, *args, **kwargs):
         """
-        Overriden to return a list of the plugins for the queried  meta.
+        Overriden to return a list of the plugins for the queried meta.
+        Document-level link relations are also added to the response.
         """
         queryset = self.get_plugins_queryset()
         response = services.get_list_response(self, queryset)
@@ -124,14 +132,15 @@ class PluginList(generics.ListAPIView):
     """
     A view for the collection of plugins.
     """
+    http_method_names = ['get']
     serializer_class = PluginSerializer
     queryset = Plugin.objects.all()
     permission_classes = (permissions.IsAuthenticated,)
 
     def list(self, request, *args, **kwargs):
         """
-        Overriden to append document-level link relations and a collection+json
-        template to the response.
+        Overriden to append document-level link relations and a query list to the
+        response.
         """
         response = super(PluginList, self).list(request, *args, **kwargs)
         # append query list
@@ -147,6 +156,7 @@ class PluginListQuerySearch(generics.ListAPIView):
     """
     A view for the collection of plugins resulting from a query search.
     """
+    http_method_names = ['get']
     serializer_class = PluginSerializer
     queryset = Plugin.objects.all()
     permission_classes = (permissions.IsAuthenticated,)
@@ -157,6 +167,7 @@ class PluginComputeResourceList(generics.ListAPIView):
     """
     A view for a plugin-specific collection of compute resources.
     """
+    http_method_names = ['get']
     queryset = Plugin.objects.all()
     serializer_class = ComputeResourceSerializer
     permission_classes = (permissions.IsAuthenticated,)
@@ -185,6 +196,7 @@ class PluginDetail(generics.RetrieveAPIView):
     """
     A plugin view.
     """
+    http_method_names = ['get']
     serializer_class = PluginSerializer
     queryset = Plugin.objects.all()
     permission_classes = (permissions.IsAuthenticated,)
@@ -194,6 +206,7 @@ class PluginParameterList(generics.ListAPIView):
     """
     A view for the collection of plugin parameters.
     """
+    http_method_names = ['get']
     serializer_class = PluginParameterSerializer
     queryset = Plugin.objects.all()
     permission_classes = (permissions.IsAuthenticated,)
@@ -222,6 +235,7 @@ class PluginParameterDetail(generics.RetrieveAPIView):
     """
     A plugin parameter view.
     """
+    http_method_names = ['get']
     serializer_class = PluginParameterSerializer
     queryset = PluginParameter.objects.all()
     permission_classes = (permissions.IsAuthenticated,)

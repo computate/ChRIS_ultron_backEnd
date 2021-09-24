@@ -18,6 +18,9 @@ APP_VERSION:
 APP_TAG: ""
 APP_USER: "root"
 APP_SECRET_KEY: "w1kxu^l=@pnsf!5piqz6!!5kdcdpo79y6jebbp+2244yjm*#+k"
+APP_SUPER_USER_NAME: rudolph
+APP_SUPER_USER_PASSWORD: rudolph1234
+APP_SUPER_USER_EMAIL: rudolph.pienaar@gmail.com
 
 PMAN_NAME: "{{ APP_NAME }}_pman"
 PMAN_POD: "{{ APP_NAME }}_pod"
@@ -72,7 +75,7 @@ SWIFT_SERVICE: "{{ SWIFT_NAME }}"
 SWIFT_SYSTEMD: "/usr/lib/systemd/system/{{ SWIFT_SERVICE }}.service"
 SWIFT_USERNAME: "chris:chris1234"
 SWIFT_KEY: "testing"
-SWIFT_PORT: "12080"
+SWIFT_PORT: "8080"
 
 QUEUE_NAME: "{{ APP_NAME }}_queue"
 QUEUE_POD: "{{ APP_NAME }}_pod"
@@ -90,7 +93,7 @@ STORE_IMAGE: "fnndsc/chris_store"
 STORE_VERSION: "latest"
 STORE_SERVICE: "{{ STORE_NAME }}"
 STORE_SYSTEMD: "/usr/lib/systemd/system/{{ STORE_SERVICE }}.service"
-STORE_PORT: "12010"
+STORE_PORT: "8010"
 
 SCHEDULER_NAME: "{{ APP_NAME }}_scheduler"
 SCHEDULER_POD: "{{ APP_NAME }}_pod"

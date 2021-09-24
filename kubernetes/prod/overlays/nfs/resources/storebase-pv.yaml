@@ -8,8 +8,8 @@ spec:
   accessModes:
   - ReadWriteMany
   capacity:
-    storage: 10Gi
+    storage: 40Gi
   nfs:
-    # The key store in pfcon beacomes a path in the NFS drive
+    # The key store in pfcon becomes a path in the NFS drive
     server: ${NFS_SERVER}
     path: ${STOREBASE}
