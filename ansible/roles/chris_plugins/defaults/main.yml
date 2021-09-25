@@ -5,6 +5,8 @@ STORE_NAME: "{{ APP_NAME }}_store"
 APP_SUPER_USER_NAME: rudolph
 APP_SUPER_USER_PASSWORD: rudolph1234
 APP_SUPER_USER_EMAIL: rudolph.pienaar@gmail.com
+PFCON_HOSTNAME: "localhost"
+PFCON_PORT: "30005"
 
 APP_PLUGINS:
   - CONTAINER_REPO: fnndsc
