@@ -86,6 +86,27 @@
     dest: "{{ UI_SRC }}"
   when: not UI_README.stat.exists
 
+################
+# Install PMAN #
+################
+
+- name: Check for the {{ PMAN_NAME }} README file
+  stat:
+    path: "{{ PMAN_SRC }}/README.rst"
+  register: PMAN_README
+- name: Create the {{ PMAN_NAME }} source directory {{ PMAN_SRC }}
+  file:
+    name: "{{ PMAN_SRC }}"
+    state: directory
+    owner: "{{ USER_NAME }}"
+  when: not PMAN_README.stat.exists
+  become: true
+- name: Clone the {{ PMAN_REPO }} source code into {{ PMAN_SRC }}
+  git:
+    repo: "{{ PMAN_REPO }}"
+    dest: "{{ PMAN_SRC }}"
+  when: not PMAN_README.stat.exists
+
 ##########################
 # Setup Data Directories #
 ##########################
@@ -270,6 +291,12 @@
     dest: "{{ UI_SYSTEMD }}"
   become: true
   when: ansible_pkg_mgr != 'homebrew'
+- name: Create the {{ PODMAN_TCP_NAME }} systemd service {{ PODMAN_TCP_SYSTEMD }}. 
+  template:
+    src: chris_podman_tcp.service
+    dest: "{{ PODMAN_TCP_SYSTEMD }}"
+  become: true
+  when: ansible_pkg_mgr != 'homebrew'
 
 - name: Reload the services. 
   systemd:
@@ -280,6 +307,13 @@
 ##########################
 # Start Systemd Services #
 ##########################
+
+- name: Start and enable the podman.socket service. 
+  service:
+    name: "podman.socket"
+    enabled: true
+    state: started
+  become: true
 
 - name: Start and enable the {{ PMAN_SERVICE }} service. 
   service:
@@ -394,6 +428,13 @@
   service:
     name: "{{ UI_SERVICE }}"
     enabled: true
+    state: restarted
+  become: true
+  when: ansible_pkg_mgr != 'homebrew'
+- name: Start and enable the {{ PODMAN_TCP_SERVICE }} service. 
+  service:
+    name: "{{ PODMAN_TCP_SERVICE }}"
+    enabled: false
     state: restarted
   become: true
   when: ansible_pkg_mgr != 'homebrew'

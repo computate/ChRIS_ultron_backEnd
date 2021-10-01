@@ -29,6 +29,8 @@ PMAN_IMAGE: "fnndsc/pman"
 PMAN_VERSION: "latest"
 PMAN_SERVICE: "{{ PMAN_NAME }}"
 PMAN_SYSTEMD: "/usr/lib/systemd/system/{{ PMAN_SERVICE }}.service"
+PMAN_SRC: "/usr/local/src/pman"
+PMAN_REPO: "git@github.com:FNNDSC/pman.git"
 
 PFCON_NAME: "{{ APP_NAME }}_pfcon"
 PFCON_POD: "{{ APP_NAME }}_pod"
@@ -84,7 +86,6 @@ QUEUE_IMAGE: "rabbitmq"
 QUEUE_VERSION: "3"
 QUEUE_SERVICE: "{{ QUEUE_NAME }}"
 QUEUE_SYSTEMD: "/usr/lib/systemd/system/{{ QUEUE_SERVICE }}.service"
-QUEUE_HOSTNAME: "queue"
 
 STORE_NAME: "{{ APP_NAME }}_store"
 STORE_POD: "{{ APP_NAME }}_pod"
@@ -130,6 +131,16 @@ UI_SERVICE: "{{ UI_NAME }}"
 UI_SYSTEMD: "/usr/lib/systemd/system/{{ UI_SERVICE }}.service"
 UI_PORT: "3000"
 UI_DATA: "{{ UI_SRC }}"
+
+##############
+# Podman TCP #
+##############
+
+PODMAN_TCP_NAME: "podman_tcp"
+PODMAN_TCP_SERVICE: "{{ PODMAN_TCP_NAME }}"
+PODMAN_TCP_SYSTEMD: "/usr/lib/systemd/system/{{ PODMAN_TCP_SERVICE }}.service"
+PODMAN_IP_ADDRESS: "{{ lookup('env', 'HOSTNAME') }}"
+PODMAN_TCP_PORT: 5000
 
 ####################
 # Ansible defaults #
