@@ -6,7 +6,7 @@ StartLimitIntervalSec=0
 Type=exec
 KillMode=process
 Environment=LOGGING="--log-level=info"
-{% f (PODMAN_MAJOR_VERSION | int) > 1 %}
+{% if (PODMAN_MAJOR_VERSION | int) > 1 %}
 ExecStart=/usr/bin/podman $LOGGING system service tcp:{{ PODMAN_IP_ADDRESS }}:{{ PODMAN_TCP_PORT }} -t 0
 {% else %}
 ExecStart=/usr/bin/podman varlink tcp:{{ PODMAN_IP_ADDRESS }}:{{ PODMAN_TCP_PORT }} -t 0
