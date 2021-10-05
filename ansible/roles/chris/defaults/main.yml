@@ -40,6 +40,8 @@ PFCON_IMAGE: "fnndsc/pfcon"
 PFCON_VERSION: "latest"
 PFCON_SERVICE: "{{ PFCON_NAME }}"
 PFCON_SYSTEMD: "/usr/lib/systemd/system/{{ PFCON_SERVICE }}.service"
+PFCON_SRC: "/usr/local/src/pfcon"
+PFCON_REPO: "git@github.com:FNNDSC/pfcon.git"
 PFCON_PORT: "30005"
 
 DEV_NAME: "{{ APP_NAME }}_dev"

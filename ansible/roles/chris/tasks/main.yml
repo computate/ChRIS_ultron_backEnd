@@ -120,6 +120,27 @@
     dest: "{{ PMAN_SRC }}"
   when: not PMAN_README.stat.exists
 
+#################
+# Install PFCON #
+#################
+
+- name: Check for the {{ PFCON_NAME }} README file
+  stat:
+    path: "{{ PFCON_SRC }}/README.rst"
+  register: PFCON_README
+- name: Create the {{ PFCON_NAME }} source directory {{ PFCON_SRC }}
+  file:
+    name: "{{ PFCON_SRC }}"
+    state: directory
+    owner: "{{ USER_NAME }}"
+  when: not PFCON_README.stat.exists
+  become: true
+- name: Clone the {{ PFCON_REPO }} source code into {{ PFCON_SRC }}
+  git:
+    repo: "{{ PFCON_REPO }}"
+    dest: "{{ PFCON_SRC }}"
+  when: not PFCON_README.stat.exists
+
 ##########################
 # Setup Data Directories #
 ##########################
