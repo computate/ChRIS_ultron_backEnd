@@ -119,6 +119,16 @@
     repo: "{{ PMAN_REPO }}"
     dest: "{{ PMAN_SRC }}"
   when: not PMAN_README.stat.exists
+- name: set SELinux permissions on {{ PMAN_SRC }}
+  sefcontext:
+    target: "{{ PMAN_SRC }}(/.*)?"
+    setype: container_file_t
+  become: true
+  vars:
+    ansible_python_interpreter: "{{ APP_PYTHON }}"
+- name: reload SELinux policy to ensure that {{ APP_NAME }} is executable
+  command: "restorecon -irv {{ PMAN_SRC }}"
+  become: true
 
 #################
 # Install PFCON #
@@ -140,6 +150,16 @@
     repo: "{{ PFCON_REPO }}"
     dest: "{{ PFCON_SRC }}"
   when: not PFCON_README.stat.exists
+- name: set SELinux permissions on {{ PFCON_SRC }}
+  sefcontext:
+    target: "{{ PFCON_SRC }}(/.*)?"
+    setype: container_file_t
+  become: true
+  vars:
+    ansible_python_interpreter: "{{ APP_PYTHON }}"
+- name: reload SELinux policy to ensure that {{ APP_NAME }} is executable
+  command: "restorecon -irv {{ PFCON_SRC }}"
+  become: true
 
 ##########################
 # Setup Data Directories #
@@ -154,7 +174,7 @@
   become: true
 - name: set SELinux permissions on {{ APP_DATA }}
   sefcontext:
-    target: "{{ APP_DATA }}"
+    target: "{{ APP_DATA }}(/.*)?"
     setype: container_file_t
   become: true
   vars:
@@ -172,7 +192,7 @@
   become: true
 - name: set SELinux permissions on {{ APP_DEV_DB_DATA }}
   sefcontext:
-    target: "{{ APP_DEV_DB_DATA }}"
+    target: "{{ APP_DEV_DB_DATA }}(/.*)?"
     setype: container_file_t
   become: true
   vars:
@@ -190,7 +210,7 @@
   become: true
 - name: set SELinux permissions on {{ APP_SWIFT_DATA }}
   sefcontext:
-    target: "{{ APP_SWIFT_DATA }}"
+    target: "{{ APP_SWIFT_DATA }}(/.*)?"
     setype: container_file_t
   become: true
   vars:
@@ -208,7 +228,7 @@
   become: true
 - name: set SELinux permissions on {{ APP_QUEUE_DATA }}
   sefcontext:
-    target: "{{ APP_QUEUE_DATA }}"
+    target: "{{ APP_QUEUE_DATA }}(/.*)?"
     setype: container_file_t
   become: true
   vars:
@@ -226,7 +246,7 @@
   become: true
 - name: set SELinux permissions on {{ UI_DATA }}
   sefcontext:
-    target: "{{ UI_DATA }}"
+    target: "{{ UI_DATA }}(/.*)?"
     setype: container_file_t
   become: true
   vars:
@@ -383,6 +403,8 @@
     port: "{{ DEV_DB_PORT }}"
     login_host: "{{ DEV_DB_HOSTNAME }}"
     db: postgres
+  vars:
+    ansible_python_interpreter: "{{ APP_PYTHON }}"
 - name: Create store database user
   postgresql_user:
     name: "{{ STORE_DB_USER }}"
@@ -392,6 +414,8 @@
     port: "{{ DEV_DB_PORT }}"
     login_host: "{{ DEV_DB_HOSTNAME }}"
     db: postgres
+  vars:
+    ansible_python_interpreter: "{{ APP_PYTHON }}"
 - name: Create dev database
   community.postgresql.postgresql_db:
     name: "{{ DEV_DB_DATABASE }}"
@@ -401,6 +425,8 @@
     port: "{{ DEV_DB_PORT }}"
     login_host: "{{ DEV_DB_HOSTNAME }}"
     db: postgres
+  vars:
+    ansible_python_interpreter: "{{ APP_PYTHON }}"
 - name: Create store database
   community.postgresql.postgresql_db:
     name: "{{ STORE_DB_DATABASE }}"
@@ -410,6 +436,8 @@
     port: "{{ DEV_DB_PORT }}"
     login_host: "{{ DEV_DB_HOSTNAME }}"
     db: postgres
+  vars:
+    ansible_python_interpreter: "{{ APP_PYTHON }}"
 - name: Start and enable the {{ SWIFT_SERVICE }} service. 
   service:
     name: "{{ SWIFT_SERVICE }}"
