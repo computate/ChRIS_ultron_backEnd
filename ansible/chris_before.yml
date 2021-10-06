@@ -1,0 +1,8 @@
+---
+- name: Install the ChRIS containers locally in podman with Ansible
+  connection: local
+  hosts: localhost
+  roles:
+    - chris_defaults
+    - chris_before
+
