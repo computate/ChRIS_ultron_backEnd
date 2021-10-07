@@ -1,4 +1,8 @@
 ---
+# hackathonTitle: define the default Ansible variables to use. 
+# hackathonColumn: Automate ChRIS install
+# hackathonLabels: ansible,yml
+# TODO: Define the main application variables. 
 APP_NAME: ChRIS
 APP_POD: "{{ APP_NAME }}_pod"
 APP_NETWORK: "ChRIS"
@@ -22,6 +26,8 @@ APP_SUPER_USER_NAME: rudolph
 APP_SUPER_USER_PASSWORD: rudolph1234
 APP_SUPER_USER_EMAIL: rudolph.pienaar@gmail.com
 
+
+# TODO: Define the pman application variables. 
 PMAN_NAME: "{{ APP_NAME }}_pman"
 PMAN_POD: "{{ APP_NAME }}_pod"
 PMAN_HOSTNAME: "localhost"
@@ -33,6 +39,8 @@ PMAN_SRC: "/usr/local/src/pman"
 PMAN_REPO: "git@github.com:FNNDSC/pman.git"
 PMAN_PORT: "5010"
 
+
+# TODO: Define the pfcon application variables. 
 PFCON_NAME: "{{ APP_NAME }}_pfcon"
 PFCON_POD: "{{ APP_NAME }}_pod"
 PFCON_HOSTNAME: "localhost"
@@ -44,6 +52,8 @@ PFCON_SRC: "/usr/local/src/pfcon"
 PFCON_REPO: "git@github.com:FNNDSC/pfcon.git"
 PFCON_PORT: "30005"
 
+
+# TODO: Define the dev application variables. 
 DEV_NAME: "{{ APP_NAME }}_dev"
 DEV_POD: "{{ APP_NAME }}_pod"
 DEV_HOSTNAME: "localhost"
@@ -53,6 +63,8 @@ DEV_SERVICE: "{{ DEV_NAME }}"
 DEV_SYSTEMD: "/usr/lib/systemd/system/{{ DEV_SERVICE }}.service"
 DEV_PORT: "8000"
 
+
+# TODO: Define the dev database application variables. 
 DEV_DB_NAME: "{{ APP_NAME }}_dev_db"
 DEV_DB_POD: "{{ APP_NAME }}_pod"
 DEV_DB_HOSTNAME: "localhost"
@@ -67,10 +79,14 @@ DEV_DB_PASSWORD: "Chris1234"
 DEV_DB_BECOME_USER: "{{ DEV_DB_USER }}"
 DEV_DB_BECOME_PASSWORD: "{{ DEV_DB_PASSWORD }}"
 
+
+# TODO: Define the store database application variables. 
 STORE_DB_DATABASE: "chris_store"
 STORE_DB_USER: "chris"
 STORE_DB_PASSWORD: "Chris1234"
 
+
+# TODO: Define the swift storage application variables. 
 SWIFT_NAME: "{{ APP_NAME }}_swift"
 SWIFT_POD: "{{ APP_NAME }}_pod"
 SWIFT_HOSTNAME: "localhost"
@@ -82,6 +98,8 @@ SWIFT_USERNAME: "chris:chris1234"
 SWIFT_KEY: "testing"
 SWIFT_PORT: "8080"
 
+
+# TODO: Define the RabbitMQ queue application variables. 
 QUEUE_NAME: "{{ APP_NAME }}_queue"
 QUEUE_POD: "{{ APP_NAME }}_pod"
 QUEUE_HOSTNAME: "localhost"
@@ -90,6 +108,8 @@ QUEUE_VERSION: "3"
 QUEUE_SERVICE: "{{ QUEUE_NAME }}"
 QUEUE_SYSTEMD: "/usr/lib/systemd/system/{{ QUEUE_SERVICE }}.service"
 
+
+# TODO: Define the ChRIS store application variables. 
 STORE_NAME: "{{ APP_NAME }}_store"
 STORE_POD: "{{ APP_NAME }}_pod"
 STORE_HOSTNAME: "localhost"
@@ -99,6 +119,8 @@ STORE_SERVICE: "{{ STORE_NAME }}"
 STORE_SYSTEMD: "/usr/lib/systemd/system/{{ STORE_SERVICE }}.service"
 STORE_PORT: "8010"
 
+
+# TODO: Define the scheduler application variables. 
 SCHEDULER_NAME: "{{ APP_NAME }}_scheduler"
 SCHEDULER_POD: "{{ APP_NAME }}_pod"
 SCHEDULER_HOSTNAME: "localhost"
@@ -107,6 +129,8 @@ SCHEDULER_VERSION: "dev"
 SCHEDULER_SERVICE: "{{ SCHEDULER_NAME }}"
 SCHEDULER_SYSTEMD: "/usr/lib/systemd/system/{{ SCHEDULER_SERVICE }}.service"
 
+
+# TODO: Define the worker periodic application variables. 
 WORKER_PERIODIC_NAME: "{{ APP_NAME }}_worker_periodic"
 WORKER_PERIODIC_POD: "{{ APP_NAME }}_pod"
 WORKER_PERIODIC_HOSTNAME: "localhost"
@@ -115,6 +139,8 @@ WORKER_PERIODIC_VERSION: "dev"
 WORKER_PERIODIC_SERVICE: "{{ WORKER_PERIODIC_NAME }}"
 WORKER_PERIODIC_SYSTEMD: "/usr/lib/systemd/system/{{ WORKER_PERIODIC_SERVICE }}.service"
 
+
+# TODO: Define the worker application variables. 
 WORKER_NAME: "{{ APP_NAME }}_worker"
 WORKER_POD: "{{ APP_NAME }}_pod"
 WORKER_HOSTNAME: "localhost"
@@ -123,6 +149,8 @@ WORKER_VERSION: "dev"
 WORKER_SERVICE: "{{ WORKER_NAME }}"
 WORKER_SYSTEMD: "/usr/lib/systemd/system/{{ WORKER_SERVICE }}.service"
 
+
+# TODO: Define the ChRIS UI application variables. 
 UI_NAME: "ChRIS_ui"
 UI_REPO: "git@github.com:FNNDSC/ChRIS_ui.git"
 UI_SRC: "/usr/local/src/{{ UI_NAME }}"
@@ -135,6 +163,8 @@ UI_SYSTEMD: "/usr/lib/systemd/system/{{ UI_SERVICE }}.service"
 UI_PORT: "3000"
 UI_DATA: "{{ UI_SRC }}"
 
+
+# TODO: Define the Podman TCP related application variables. 
 ##############
 # Podman TCP #
 ##############
@@ -145,6 +175,9 @@ PODMAN_TCP_SYSTEMD: "/usr/lib/systemd/system/{{ PODMAN_TCP_SERVICE }}.service"
 PODMAN_IP_ADDRESS: "{{ lookup('env', 'HOSTNAME') }}"
 PODMAN_TCP_PORT: 5000
 
+
+
+# TODO: Define other Ansible related application variables. 
 ####################
 # Ansible defaults #
 ####################

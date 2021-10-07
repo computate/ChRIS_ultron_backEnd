@@ -1,3 +1,6 @@
+# hackathonTitle: define the ChRIS dev systemd service file. 
+# hackathonColumn: Automate dev
+# hackathonLabels: ansible,yml
 [Unit]
 Description=
 After=network.service

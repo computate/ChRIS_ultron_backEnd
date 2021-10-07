@@ -1,3 +1,6 @@
+# hackathonTitle: define the ChRIS Swift storage systemd service file.  
+# hackathonColumn: Automate swift 
+# hackathonLabels: ansible,yml
 [Unit]
 Description=
 After=network.service

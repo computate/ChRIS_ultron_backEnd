@@ -1,3 +1,6 @@
+# hackathonTitle: define the ChRIS scheduler systemd service file.  
+# hackathonColumn: Automate scheduler 
+# hackathonLabels: ansible,yml
 [Unit]
 Description=
 After=network.service

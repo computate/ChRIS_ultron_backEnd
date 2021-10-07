@@ -1,7 +1,14 @@
 ---
+# hackathonTitle: create an Ansible Playbook to setup everything. 
+# hackathonColumn: Automate ChRIS install
+# hackathonLabels: ansible,yml
+# TODO: Define the playbook to run locally. 
 - name: Install the ChRIS containers locally in podman with Ansible
   connection: local
   hosts: localhost
+
+
+  # TODO: Call the main chris role. 
   roles:
     - chris
 

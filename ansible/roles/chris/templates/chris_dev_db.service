@@ -1,3 +1,6 @@
+# hackathonTitle: define the ChRIS dev database systemd service file. 
+# hackathonColumn: Automate dev database
+# hackathonLabels: ansible,yml
 [Unit]
 Description=
 After=network.service

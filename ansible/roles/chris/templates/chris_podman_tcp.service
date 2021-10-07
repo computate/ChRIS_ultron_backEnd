@@ -1,3 +1,6 @@
+# hackathonTitle: define the ChRIS Podman TCP systemd service file. 
+# hackathonColumn: Automate ChRIS install
+# hackathonLabels: ansible,yml
 Description=Podman TCP API Service
 After=network.service
 StartLimitIntervalSec=0

@@ -1,3 +1,6 @@
+# hackathonTitle: define the ChRIS worker periodic systemd service file.  
+# hackathonColumn: Automate worker periodic 
+# hackathonLabels: ansible,yml
 [Unit]
 Description=
 After=network.service

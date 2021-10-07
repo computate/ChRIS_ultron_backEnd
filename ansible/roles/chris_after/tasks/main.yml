@@ -1,2 +1,5 @@
 ---
+# hackathonTitle: define the ending Ansible tasks to install ChRIS to podman locally. 
+# hackathonColumn: Automate ChRIS install 
+# hackathonLabels: ansible,yml
 

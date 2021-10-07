@@ -1,3 +1,6 @@
+# hackathonTitle: define the ChRIS UI systemd service file.  
+# hackathonColumn: Automate UI 
+# hackathonLabels: ansible,yml
 [Unit]
 Description=
 After=network.service

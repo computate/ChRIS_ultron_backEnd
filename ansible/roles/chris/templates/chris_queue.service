@@ -1,3 +1,6 @@
+# hackathonTitle: define the ChRIS RabbitMQ queue systemd service file. 
+# hackathonColumn: Automate queue
+# hackathonLabels: ansible,yml
 [Unit]
 Description=
 After=network.service

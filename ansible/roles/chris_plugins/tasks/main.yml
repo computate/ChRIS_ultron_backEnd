@@ -1,4 +1,7 @@
 ---
+# hackathonTitle: define the Ansible tasks to setup all the main ChRIS plugins. 
+# hackathonColumn: Automate ChRIS install 
+# hackathonLabels: ansible,yml
 - name: "Add the superuser to the ChRIS store container"
   shell: /usr/bin/podman exec {{ STORE_NAME }} python manage.py createsuperuser --noinput --username '{{ APP_SUPER_USER_NAME }}' --email '{{ APP_SUPER_USER_EMAIL }}'
   become: true
