@@ -1,6 +1,6 @@
 ---
 # hackathonTitle: define the Ansible tasks to install the pfcon application as a container in podman. 
-# hackathonColumn: Automate pfcon 
+# hackathonColumn: Automate pfcon
 # hackathonLabels: ansible,yml
 # TODO: Automate the setup of the ChRIS DB data directory. 
 - name: Create the {{ APP_NAME }} data directory {{ APP_DEV_DB_DATA }}. 

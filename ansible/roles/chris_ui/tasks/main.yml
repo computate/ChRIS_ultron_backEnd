@@ -1,6 +1,6 @@
 ---
 # hackathonTitle: define the Ansible tasks to install the pfcon application as a container in podman. 
-# hackathonColumn: Automate pfcon 
+# hackathonColumn: Automate pfcon
 # hackathonLabels: ansible,yml
 # TODO: Automomate the setup of the ChRIS UI source code repository. 
 - name: Check for the {{ UI_NAME }} README file

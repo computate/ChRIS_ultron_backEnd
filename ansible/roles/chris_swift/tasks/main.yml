@@ -1,6 +1,6 @@
 ---
 # hackathonTitle: define the Ansible tasks to install the pfcon application as a container in podman. 
-# hackathonColumn: Automate pfcon 
+# hackathonColumn: Automate pfcon
 # hackathonLabels: ansible,yml
 # TODO: Setup the Swift data directory. 
 - name: Create the {{ APP_NAME }} data directory {{ APP_SWIFT_DATA }}. 
