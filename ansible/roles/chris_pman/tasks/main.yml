@@ -2,11 +2,7 @@
 # hackathonTitle: define the Ansible tasks to setup the pman application as a container in podman. 
 # hackathonColumn: Automate pman 
 # hackathonLabels: ansible,yml
-
-################
-# Install PMAN #
-################
-
+# TODO: Automomate the setup of the ChRIS pman source code repository. 
 - name: Check for the {{ PMAN_NAME }} README file
   stat:
     path: "{{ PMAN_SRC }}/README.rst"
@@ -33,10 +29,18 @@
 - name: reload SELinux policy to ensure that {{ APP_NAME }} is executable
   command: "restorecon -irv {{ PMAN_SRC }}"
   become: true
+
+
+# TODO: Automate the deployment of ChRIS pman as a Podman container running as a Systemd service. 
 - name: Create the {{ PMAN_NAME }} systemd service {{ PMAN_SYSTEMD }}. 
   template:
     src: chris_pman.service
     dest: "{{ PMAN_SYSTEMD }}"
+  become: true
+  when: ansible_pkg_mgr != 'homebrew'
+- name: Reload the services. 
+  systemd:
+    daemon_reload: true
   become: true
   when: ansible_pkg_mgr != 'homebrew'
 - name: Start and enable the {{ PMAN_SERVICE }} service. 
