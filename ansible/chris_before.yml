@@ -2,7 +2,7 @@
 # hackathonTitle: create an Ansible Playbook to setup the initial ChRIS prerequisites. 
 # hackathonColumn: Automate ChRIS install
 # hackathonLabels: ansible,yml
-# TODO: define the playbook to run locally
+# TODO: Define the playbook to run locally. 
 - name: Install the ChRIS containers locally in podman with Ansible
   connection: local
   hosts: localhost
