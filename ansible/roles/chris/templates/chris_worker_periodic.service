@@ -1,5 +1,6 @@
 # hackathonTitle: define the ChRIS worker periodic systemd service file.  
-# hackathonColumn: Automate worker periodic 
+# hackathonColumn: Automate worker periodic
+# hackathonLabel: create_worker_periodic_service_template
 # hackathonLabels: ansible,yml
 [Unit]
 Description=

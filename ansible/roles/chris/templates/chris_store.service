@@ -1,5 +1,6 @@
 # hackathonTitle: define the ChRIS store systemd service file.  
-# hackathonColumn: Automate store 
+# hackathonColumn: Automate store
+# hackathonLabel: create_store_service_template
 # hackathonLabels: ansible,yml
 [Unit]
 Description=

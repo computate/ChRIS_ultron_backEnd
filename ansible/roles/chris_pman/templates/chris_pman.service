@@ -1,5 +1,6 @@
 # hackathonTitle: define the ChRIS pman systemd service file.  
-# hackathonColumn: Automate pman 
+# hackathonColumn: Automate pman
+# hackathonLabel: create_pman_service_template
 # hackathonLabels: ansible,yml
 [Unit]
 Description=

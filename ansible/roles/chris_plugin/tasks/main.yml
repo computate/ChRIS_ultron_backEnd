@@ -1,6 +1,7 @@
 ---
 # hackathonTitle: define the Ansible tasks to setup ChRIS plugins. 
-# hackathonColumn: Automate plugins 
+# hackathonColumn: Automate plugins
+# hackathonLabel: create_plugin_tasks
 # hackathonLabels: ansible,yml
 - name: Pull the plugin image {{ APP_PLUGIN.CONTAINER_REPO }}/{{ APP_PLUGIN.CONTAINER_IMAGE }}
   containers.podman.podman_image:

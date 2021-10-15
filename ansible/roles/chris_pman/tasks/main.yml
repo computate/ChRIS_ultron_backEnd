@@ -1,6 +1,7 @@
 ---
 # hackathonTitle: define the Ansible tasks to setup the pman application as a container in podman. 
-# hackathonColumn: Automate pman 
+# hackathonColumn: Automate pman
+# hackathonLabel: create_pman_tasks
 # hackathonLabels: ansible,yml
 
 ################

@@ -1,5 +1,6 @@
 # hackathonTitle: define the ChRIS UI systemd service file.  
-# hackathonColumn: Automate UI 
+# hackathonColumn: Automate UI
+# hackathonLabel: create_ui_service_template
 # hackathonLabels: ansible,yml
 [Unit]
 Description=

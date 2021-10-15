@@ -1,6 +1,7 @@
 ---
 # hackathonTitle: define the main Ansible tasks to install ChRIS to podman locally. 
 # hackathonColumn: Automate ChRIS install
+# hackathonLabel: create_main_chris_tasks
 # hackathonLabels: ansible,yml
 - name: "install podman dependency"
   package:

@@ -1,6 +1,7 @@
 ---
 # hackathonTitle: define the ChRIS plugin default variables
-# hackathonColumn: Automate ChRIS install 
+# hackathonColumn: Automate ChRIS install
+# hackathonLabel: create_plugins_defaults
 # hackathonLabels: ansible,yml
 APP_NAME: ChRIS
 DEV_NAME: "{{ APP_NAME }}_dev"
