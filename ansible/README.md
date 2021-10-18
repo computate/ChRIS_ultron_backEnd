@@ -8,19 +8,19 @@ sudo yum install -y git python3 python3-pip python3-virtualenv python3-libselinu
 
 ## Install dependencies on MacOSX
 
-For MacOS, install gnu-tar and add it to the system PATH  
-https://stackoverflow.com/questions/54528115/unable-to-extract-tar-file-though-ansible-unarchive-module-in-macos
-
 ```bash
-brew install git python maven gnu-tar
+brew install git python gnu-tar podman
+pip3 install virtualenv
 ```
 
 ## Install the latest Python and setup a new Python virtualenv
 
 ```bash
-virtualenv-3 ~/python
+# This step might be virtualenv-3 for you. 
+virtualenv ~/python
+
 source ~/python/bin/activate
-echo "source ~/python/bin/activate" | tee -a ~/.bashrc
+echo "source ~/python/bin/activate" | tee -a ~/.bash_profile
 ```
 
 ## Install the latest Ansible
@@ -36,7 +36,7 @@ pip install ansible selinux setools
 ### Create a directory for the ChRIS_ultron_backEnd repository and clone it
 
 ```bash
-install -d -o $USER -g $USER /usr/local/src/ChRIS_ultron_backEnd
+install -d -o $USER /usr/local/src/ChRIS_ultron_backEnd
 git clone git@github.com:team19hackathon2021/ChRIS_ultron_backEnd.git /usr/local/src/ChRIS_ultron_backEnd
 ```
 
