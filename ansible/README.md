@@ -33,10 +33,11 @@ pip install ansible selinux setools
 
 ## Clone the ChRIS_ultron_backEnd repository
 
-### Create a directory for the ChRIS_ultron_backEnd repository
+### Create a directory for the ChRIS_ultron_backEnd repository and clone it
 
 ```bash
-install -d /usr/local/src/ChRIS_ultron_backEnd
+install -d -o $USER -g $USER /usr/local/src/ChRIS_ultron_backEnd
+git clone git@github.com:team19hackathon2021/ChRIS_ultron_backEnd.git /usr/local/src/ChRIS_ultron_backEnd
 ```
 
 ## Run the Ansible automation to install the ChRIS system
