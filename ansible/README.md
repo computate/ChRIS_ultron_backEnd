@@ -29,7 +29,7 @@ install -d /usr/local/src/ChRIS_ultron_backEnd
 
 ```bash
 cd /usr/local/src/ChRIS_ultron_backEnd
-ansible-playbook -K install.yml
+ansible-playbook -K install_all.yml
 ```
 
 # Troubleshooting
