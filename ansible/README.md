@@ -1,9 +1,23 @@
 # Install the complete ChRIS system locally with Ansible and Podman
 
-## Install the latest Python and setup a new Python virtualenv
+## Install dependencies on Linux
 
 ```bash
 sudo yum install -y git python3 python3-pip python3-virtualenv python3-libselinux python3-libsemanage python3-policycoreutils
+```
+
+## Install dependencies on MacOSX
+
+For MacOS, install gnu-tar and add it to the system PATH  
+https://stackoverflow.com/questions/54528115/unable-to-extract-tar-file-though-ansible-unarchive-module-in-macos
+
+```bash
+brew install git python maven gnu-tar
+```
+
+## Install the latest Python and setup a new Python virtualenv
+
+```bash
 virtualenv-3 ~/python
 source ~/python/bin/activate
 echo "source ~/python/bin/activate" | tee -a ~/.bashrc
