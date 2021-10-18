@@ -2,21 +2,21 @@ package org.chrisproject.api.enus.ansible;
 
 /**
  * ContentType: text/plain
- * DisplayName.enUS: ChRIS_ultron_backEnd/ansible/chris_pfcon.yml
- * Map.hackathonLabel: create_java_class_Ansible_chris_pfcon
+ * DisplayName.enUS: ChRIS_ultron_backEnd/ansible/chris_ui.yml
+ * Map.hackathonLabel: create_java_class_Ansible_chris_ui
  * Map.hackathonMission: define the playbook to run locally
- * Map.hackathonTitle: create an Ansible Playbook to setup the podman_tcp container locally. 
- * Map.hackathonColumn: Automate podman_tcp
+ * Map.hackathonTitle: create an Ansible Playbook to setup the ui container locally. 
+ * Map.hackathonColumn: Automate ui
  * Map.hackathonLabels: ansible,yml
  * enUS: define the playbook to run locally
  * enUS: Run the chris_defaults role to load the ChRIS related variables. 
- * enUS: Now run the chris_podman_tcp role to install the podman_tcp container to podman. 
+ * enUS: Now run the chris_ui role to install the ui container to podman. 
  */
-public class Ansible_chris_pfcon {
+public class Ansible_chris_ui {
 
 	/**
 	 * DisplayName.enUS: define the playbook to run locally
-	 * enUS: Create a new file: /usr/local/src/ChRIS_ultron_backEnd/ansible/chris_pfcon.yml
+	 * enUS: Create a new file: /usr/local/src/ChRIS_ultron_backEnd/ansible/chris_ui.yml
 	 * enUS: 
 	 * enUS: 
 	 */
@@ -26,12 +26,18 @@ public class Ansible_chris_pfcon {
 //- name: Install the ChRIS containers locally in podman with Ansible
 //  connection: local
 //  hosts: localhost
-//  
+	}
+
+	/**
+	 * DisplayName.enUS: Run the chris_defaults role to load the ChRIS related variables. 
+	 * enUS: 
+	 */
+	public void part2() {
 //
 //  # Run the chris_defaults role to load the ChRIS related variables. 
 //  roles:
 //    - chris_defaults
-//    # Now run the chris_podman_tcp role to install the podman_tcp container to podman. 
-//    - chris_podman_tcp
+//    # Now run the chris_ui role to install the ui container to podman. 
+//    - chris_ui
 	}
 }

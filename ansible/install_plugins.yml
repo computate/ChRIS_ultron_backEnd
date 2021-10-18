@@ -11,4 +11,3 @@
   # TODO: Run the chris_plugins role to load the main ChRIS plugins. 
   roles:
     - chris_plugins
-

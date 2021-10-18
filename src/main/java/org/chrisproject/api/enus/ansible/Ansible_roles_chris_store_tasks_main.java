@@ -3,10 +3,10 @@ package org.chrisproject.api.enus.ansible;
 /**
  * ContentType: text/plain
  * DisplayName.enUS: ChRIS_ultron_backEnd/ansible/roles/chris_store/tasks/main.yml
- * Map.hackathonLabel: create_java_class_Ansible_roles_chris_store_tasks_main
+ * Map.hackathonLabel: create_store_tasks
  * Map.hackathonMission: Automate the deployment of ChRIS store as a Podman container running as a Systemd service. 
- * Map.hackathonTitle: define the Ansible tasks to install the pfcon application as a container in podman. 
- * Map.hackathonColumn: Automate pfcon
+ * Map.hackathonTitle: define the Ansible tasks to install the store application as a container in podman. 
+ * Map.hackathonColumn: Automate store
  * Map.hackathonLabels: ansible,yml
  * enUS: Automate the deployment of ChRIS store as a Podman container running as a Systemd service. 
  */

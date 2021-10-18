@@ -1,6 +1,7 @@
 ---
-# hackathonTitle: define the Ansible tasks to install the pfcon application as a container in podman. 
-# hackathonColumn: Automate pfcon
+# hackathonTitle: define the Ansible tasks to install the Podman TCP application as a container in podman. 
+# hackathonColumn: Automate ChRIS install
+# hackathonLabel: create_podman_tcp_tasks
 # hackathonLabels: ansible,yml
 # TODO: Automate the deployment of ChRIS podman socket service and TCP service as a Podman container running as a Systemd service. 
 - name: Create the {{ PODMAN_TCP_NAME }} systemd service {{ PODMAN_TCP_SYSTEMD }}. 

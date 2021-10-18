@@ -9,7 +9,7 @@ package org.chrisproject.api.enus.ansible;
  * Map.hackathonColumn: Automate ChRIS install
  * Map.hackathonLabels: ansible,yml
  * enUS: Define the playbook to run locally. 
- * enUS: Call the main chris role. 
+ * enUS: Call the all the  ChRIS Ansible roles. 
  */
 public class Ansible_install_all {
 
@@ -28,13 +28,27 @@ public class Ansible_install_all {
 	}
 
 	/**
-	 * DisplayName.enUS: Call the main chris role. 
+	 * DisplayName.enUS: Call the all the  ChRIS Ansible roles. 
 	 * enUS: 
 	 */
 	public void part2() {
 //
-//  # Call the main chris role. 
+//  # Call the all the  ChRIS Ansible roles. 
 //  roles:
-//    - chris
+//    - chris_before
+//    - chris_dev_db
+//    - chris_pman
+//    - chris_pfcon
+//    - chris_podman_tcp
+//    - chris_queue
+//    - chris_scheduler
+//    - chris_swift
+//    - chris_worker
+//    - chris_worker_periodic
+//    - chris_dev
+//    - chris_ui
+//    - chris_store
+//    - chris_after
+//    - chris_plugins
 	}
 }

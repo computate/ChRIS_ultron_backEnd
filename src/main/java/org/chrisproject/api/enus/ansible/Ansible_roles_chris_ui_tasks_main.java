@@ -3,10 +3,10 @@ package org.chrisproject.api.enus.ansible;
 /**
  * ContentType: text/plain
  * DisplayName.enUS: ChRIS_ultron_backEnd/ansible/roles/chris_ui/tasks/main.yml
- * Map.hackathonLabel: create_java_class_Ansible_roles_chris_ui_tasks_main
+ * Map.hackathonLabel: create_ui_tasks
  * Map.hackathonMission: Automomate the setup of the ChRIS UI source code repository. 
- * Map.hackathonTitle: define the Ansible tasks to install the pfcon application as a container in podman. 
- * Map.hackathonColumn: Automate pfcon
+ * Map.hackathonTitle: define the Ansible tasks to install the ChRIS UI application as a container in podman. 
+ * Map.hackathonColumn: Automate ui
  * Map.hackathonLabels: ansible,yml
  * enUS: Automomate the setup of the ChRIS UI source code repository. 
  * enUS: Automate the setup of the ChRIS UI data directory. 

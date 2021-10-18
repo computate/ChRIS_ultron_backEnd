@@ -8,7 +8,20 @@
   hosts: localhost
 
 
-  # TODO: Call the main chris role. 
+  # TODO: Call the all the  ChRIS Ansible roles. 
   roles:
-    - chris
-
+    - chris_before
+    - chris_dev_db
+    - chris_pman
+    - chris_pfcon
+    - chris_podman_tcp
+    - chris_queue
+    - chris_scheduler
+    - chris_swift
+    - chris_worker
+    - chris_worker_periodic
+    - chris_dev
+    - chris_ui
+    - chris_store
+    - chris_after
+    - chris_plugins

@@ -1,6 +1,7 @@
 ---
-# hackathonTitle: define the Ansible tasks to install the pfcon application as a container in podman. 
-# hackathonColumn: Automate pfcon
+# hackathonTitle: define the Ansible tasks to install the worker application as a container in podman. 
+# hackathonColumn: Automate worker
+# hackathonLabel: create_worker_tasks
 # hackathonLabels: ansible,yml
 # TODO: Automate the deployment of ChRIS worker as a Podman container running as a Systemd service. 
 - name: Create the {{ WORKER_NAME }} systemd service {{ WORKER_SYSTEMD }}. 

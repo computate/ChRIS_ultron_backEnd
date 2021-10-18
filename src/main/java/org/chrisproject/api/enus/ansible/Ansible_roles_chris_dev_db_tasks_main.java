@@ -3,10 +3,10 @@ package org.chrisproject.api.enus.ansible;
 /**
  * ContentType: text/plain
  * DisplayName.enUS: ChRIS_ultron_backEnd/ansible/roles/chris_dev_db/tasks/main.yml
- * Map.hackathonLabel: create_java_class_Ansible_roles_chris_dev_db_tasks_main
+ * Map.hackathonLabel: create_dev_db_tasks
  * Map.hackathonMission: Automate the setup of the ChRIS DB data directory. 
- * Map.hackathonTitle: define the Ansible tasks to install the pfcon application as a container in podman. 
- * Map.hackathonColumn: Automate pfcon
+ * Map.hackathonTitle: define the Ansible tasks to install the dev PostgreSQL database application as a container in podman. 
+ * Map.hackathonColumn: Automate dev database
  * Map.hackathonLabels: ansible,yml
  * enUS: Automate the setup of the ChRIS DB data directory. 
  * enUS: Automate the deployment of ChRIS DB as a Podman container running as a Systemd service. 

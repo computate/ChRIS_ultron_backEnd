@@ -3,10 +3,10 @@ package org.chrisproject.api.enus.ansible;
 /**
  * ContentType: text/plain
  * DisplayName.enUS: ChRIS_ultron_backEnd/ansible/roles/chris_worker_periodic/tasks/main.yml
- * Map.hackathonLabel: create_java_class_Ansible_roles_chris_worker_periodic_tasks_main
+ * Map.hackathonLabel: create_worker_periodic_tasks
  * Map.hackathonMission: Automate the deployment of ChRIS worker periodic as a Podman container running as a Systemd service. 
- * Map.hackathonTitle: define the Ansible tasks to install the pfcon application as a container in podman. 
- * Map.hackathonColumn: Automate pfcon
+ * Map.hackathonTitle: define the Ansible tasks to install the worker periodic application as a container in podman. 
+ * Map.hackathonColumn: Automate worker periodic
  * Map.hackathonLabels: ansible,yml
  * enUS: Automate the deployment of ChRIS worker periodic as a Podman container running as a Systemd service. 
  */

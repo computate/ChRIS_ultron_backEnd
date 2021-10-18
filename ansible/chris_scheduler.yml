@@ -1,16 +1,16 @@
 ---
-# hackathonTitle: create an Ansible Playbook to setup the podman_tcp container locally. 
-# hackathonColumn: Automate podman_tcp
+# hackathonTitle: create an Ansible Playbook to setup the scheduler container locally. 
+# hackathonColumn: Automate scheduler
 # hackathonLabels: ansible,yml
 # TODO: define the playbook to run locally
 - name: Install the ChRIS containers locally in podman with Ansible
   connection: local
   hosts: localhost
-  
+
 
   # TODO: Run the chris_defaults role to load the ChRIS related variables. 
   roles:
     - chris_defaults
-    # TODO: Now run the chris_podman_tcp role to install the podman_tcp container to podman. 
-    - chris_podman_tcp
+    # TODO: Now run the chris_scheduler role to install the scheduler container to podman. 
+    - chris_scheduler
 
