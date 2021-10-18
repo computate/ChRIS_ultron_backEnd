@@ -1,0 +1,18 @@
+---
+# hackathonTitle: create an Ansible Playbook to setup the initial ChRIS prerequisites. 
+# hackathonColumn: Automate ChRIS install
+# hackathonLabels: ansible,yml
+# TODO: Define the playbook to run locally. 
+- name: Install the ChRIS containers locally in podman with Ansible
+  connection: local
+  hosts: localhost
+
+
+  # TODO: Run the chris_defaults role to load the ChRIS related variables. 
+  roles:
+    - chris_defaults
+
+
+    # TODO: Now run the chris_before role to do the prerequisite steps to installing the other applications. 
+    - chris_before
+

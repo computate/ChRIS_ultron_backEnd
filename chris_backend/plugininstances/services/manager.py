@@ -138,6 +138,9 @@ class PluginInstanceManager(object):
         logger.info(f'Submitting job {job_id} to pfcon url -->{pfcon_url}<--, '
                     f'description: {json.dumps(job_descriptors, indent=4)}')
         try:
+            logger.info('Submit to pfcon %s: %s' % ('job_id', job_id))
+            logger.info('Submit to pfcon %s: %s' % ('job_descriptors', job_descriptors))
+            logger.info('Submit to pfcon %s: %s' % ('zip_file', zip_file.getvalue()))
             d_resp = self.pfcon_client.submit_job(job_id, job_descriptors,
                                                   zip_file.getvalue(), timeout=9000)
         except PfconRequestException as e:

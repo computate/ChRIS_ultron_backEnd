@@ -1,0 +1,63 @@
+APP_NAME: ChRIS_ultron_backEnd
+
+LANGUAGE_NAME: enUS
+APP_PATH_enUS: /usr/local/src/ChRIS_ultron_backEnd
+DOMAIN_NAME: heytate.com
+DOMAIN_PACKAGE_NAME: org.chrisproject.api.enus
+SUFFIX_SRC_MAIN_JAVA: /src/main/java
+SUFFIX_SRC_GEN_JAVA: /src/gen/java
+RELATIVE_PATHS_TO_WATCH: src/main/java/org/chrisproject/api/enus
+
+LANGUAGE_NAME: enUS
+APP_PATH_enUS: /usr/local/src/ChRIS_ultron_backEnd
+DOMAIN_NAME: heytate.com
+DOMAIN_PACKAGE_NAME: org.chrisproject.api.enus
+SUFFIX_SRC_MAIN_JAVA: /src/main/java
+SUFFIX_SRC_GEN_JAVA: /src/gen/java
+RELATIVE_PATHS_TO_WATCH: src/main/java/org/chrisproject/api/enus
+JDBC_HOST: localhost
+JDBC_PORT: 5432
+JDBC_DATABASE: ChRIS_ultron_backEnd
+JDBC_USERNAME: ChRIS_ultron_backEnd
+JDBC_PASSWORD: dRErVUcisO
+SITE_HOST_NAME: ChRIS_ultron_backEnd-dev.example.com
+SITE_BASE_URL: http://localhost:10981
+AUTH_REALM: COMPUTATE.ORG
+AUTH_RESOURCE: computate.org
+AUTH_SECRET: eece2685-569a-443f-badb-f8283c5ffce0
+AUTH_URL: https://sso.computate.org/auth
+AUTH_TOKEN_URI: /auth/realms/COMPUTATE.ORG/protocol/openid-connect/token
+AUTH_HOST_NAME: sso.computate.org
+AUTH_PORT: 443
+AUTH_SSL: true
+AUTH_SSL_REQUIRED: all
+SITE_PORT: 10981
+SOLR_URL: http://localhost:8983/solr/ChRIS_ultron_backEnd
+SOLR_URL_COMPUTATE: http://localhost:8983/solr/computate
+API_CONTACT_EMAIL: ...
+SITE_ZONE: America/Denver
+STATIC_BASE_URL: https://example.neocities.org
+STATIC_PATH: /usr/local/src/ChRIS_ultron_backEnd-static
+TEMPLATE_PATH: /usr/local/src/ChRIS_ultron_backEnd-static/template
+EMAIL_HOST: 
+EMAIL_PORT: 
+EMAIL_SSL: 
+EMAIL_AUTH: 
+EMAIL_USERNAME: 
+EMAIL_PASSWORD: 
+EMAIL_FROM: 
+EMAIL_ADMIN: 
+SQL_TABLES: True
+# Set the userKey of the user creating an object in the database. 
+# ENABLE_USER_KEY: true
+# # Set the sessionId of the user session creating an object in the database. 
+# ENABLE_SESSION_ID: true
+# # Enable an object in the database to be deleted. 
+# ENABLE_DELETED: true
+# # Enable an object in the database to be archived. 
+# ENABLE_ARCHIVED: true
+# ENABLE_IMPORT_DATA: true
+#
+# AUTH_ROLES_ADMIN: [ SiteAdmin ]
+#
+#

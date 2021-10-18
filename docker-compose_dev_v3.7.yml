@@ -67,7 +67,7 @@ services:
       - chris_dev_db
       - swift_service
       - queue
-      # service also depends on pfcon service defined in swarm/docker-compose_remote.yml
+      # service also depends on pfcon service defined in swarm/docker-compose_remote_3.7.yml
     networks:
       - local
       - remote

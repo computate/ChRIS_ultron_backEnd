@@ -7,6 +7,7 @@
 # SYNPOSIS
 #
 #   plugin_add.sh [-t dev|deploy]                                       \
+                  [-V <3.7|3.0>]                                        \
 #                 [-s <step>] [-j]                                      \
 #                 <commaSeparatedListOfPluginSpecsToAdd>
 #
@@ -48,39 +49,46 @@
 #       Show JSON representation. If specified, also "print" a given plugin
 #       JSON representation during the store registration phase.
 #
+#   [-V <3.7|3.0>]
+#
+#       Explicitly set docker-swarm version other than 3.7 (see https://docs.docker.com/compose/compose-file/compose-versioning/#version-37).
+#
 
 source ./decorate.sh
 source ./cparse.sh
 
-DOCKER_COMPOSE_FILE=docker-compose_dev.yml
 CHRIS=chris_dev
 TARGET=dev
 declare -i STEP=0
 declare -i b_json=0
 HERE=$(pwd)
 LINE="------------------------------------------------"
+SWARM_VERSION=3.7
 
 if [[ -f .env ]] ; then
     source .env
 fi
 
-while getopts "f:s:j" opt; do
+while getopts "f:s:j:V" opt; do
     case $opt in
         s)  STEP=$OPTARG
             STEP=$(( STEP -1 ))                 ;;
         t)  TARGET=$OPTARG                      ;;
         j)  b_json=1                            ;;
+        V) SWARM_VERSION=$OPTARG                ;;
     esac
 done
 
+DOCKER_COMPOSE_FILE=docker-compose_dev_v${SWARM_VERSION}.yml
+
 case $TARGET in
-    dev)    DOCKER_COMPOSE_FILE=docker-compose_dev.yml
+    dev)    DOCKER_COMPOSE_FILE=docker-compose_dev_v${SWARM_VERSION}.yml
             CHRIS=chris_dev
             ;;
     deploy) DOCKER_COMPOSE_FILE=docker-compose.yml
             CHRIS=chris
             ;;
-    *)      DOCKER_COMPOSE_FILE=docker-compose_dev.yml
+    *)      DOCKER_COMPOSE_FILE=docker-compose_dev_v${SWARM_VERSION}.yml
             CHRIS=chris_dev
             ;;
 esac

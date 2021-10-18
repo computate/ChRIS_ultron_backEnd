@@ -13,3 +13,13 @@ dc.out
 celerybeat.pid
 swarm/prod/secrets/
 kubernetes/prod/base/secrets/
+**.swp
+.project
+chris_store_db_data/**
+chris_dev_db_data/**
+queue_data/**
+swift_storage_dev/**
+chris_backend/**
+.pydevproject
+.settings
+

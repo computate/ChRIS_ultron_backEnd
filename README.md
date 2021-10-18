@@ -38,8 +38,8 @@ docker swarm init --advertise-addr 127.0.0.1
 Get the source code from CUBE repo: 
 
 ```bash
-git clone https://github.com/FNNDSC/ChRIS_ultron_backend
-cd ChRIS_ultron_backend
+git clone https://github.com/FNNDSC/ChRIS_ultron_backEnd
+cd ChRIS_ultron_backEnd
 ```
 
 Run full CUBE instantiation with tests:
@@ -69,8 +69,8 @@ Internally the script uses the `docker stack` or `Kustomize` tools to deploy on 
 #### Fetch the repo's source code:
 
 ```bash
-git clone https://github.com/FNNDSC/ChRIS_ultron_backend
-cd ChRIS_ultron_backend
+git clone https://github.com/FNNDSC/ChRIS_ultron_backEnd
+cd ChRIS_ultron_backEnd
 ```
 
 #### Deploy on a single-machine Docker Swarm cluster:
@@ -94,7 +94,7 @@ wiki page to learn more about these files.
 * Tear down and remove CUBE backend containers:
 
 ```bash
-cd ChRIS_ultron_backend
+cd ChRIS_ultron_backEnd
 ./deploy.sh down
 ```
 
@@ -121,7 +121,7 @@ wiki page to learn more about these files.
 * Tear down and remove CUBE backend containers:
 
 ```bash
-cd ChRIS_ultron_backend
+cd ChRIS_ultron_backEnd
 ./deploy.sh -O kubernetes down
 ```
 
@@ -138,7 +138,7 @@ cd ChRIS_ultron_backend
 * Tear down and remove CUBE backend containers:
 
 ```bash
-cd ChRIS_ultron_backend
+cd ChRIS_ultron_backEnd
 ./deploy.sh -O kubernetes -T nfs -P <nfs_server_ip> down
 ```
 
@@ -223,19 +223,19 @@ To run only the Unit tests:
 
 ```bash
 cd ChRIS_ultron_backEnd
-docker-compose -f docker-compose_dev.yml exec chris_dev python manage.py test --exclude-tag integration
+docker-compose -f docker-compose_dev_v3.7.yml exec chris_dev python manage.py test --exclude-tag integration
 ```
 
 To run only the Integration tests:
 
 ```bash
-docker-compose -f docker-compose_dev.yml exec chris_dev python manage.py test --tag integration
+docker-compose -f docker-compose_dev_v3.7.yml exec chris_dev python manage.py test --tag integration
 ```
 
 To run all the tests:
 
 ```bash
-docker-compose -f docker-compose_dev.yml exec chris_dev python manage.py test 
+docker-compose -f docker-compose_dev_v3.7.yml exec chris_dev python manage.py test 
 ```
 
 After running the Integration tests the ``./CHRIS_REMOTE_FS`` directory **must** be empty otherwise it means some error has occurred and you should manually empty it.
@@ -245,8 +245,8 @@ After running the Integration tests the ``./CHRIS_REMOTE_FS`` directory **must**
 Make sure the ``chris_backend/`` dir is world writable. Then type:
 
 ```bash
-docker-compose -f docker-compose_dev.yml exec chris_dev coverage run --source=feeds,plugins,uploadedfiles,users manage.py test
-docker-compose -f docker-compose_dev.yml exec chris_dev coverage report
+docker-compose -f docker-compose_dev_v3.7.yml exec chris_dev coverage run --source=feeds,plugins,uploadedfiles,users manage.py test
+docker-compose -f docker-compose_dev_v3.7.yml exec chris_dev coverage report
 ```
 
 #### Using [HTTPie](https://httpie.org/) client to play with the REST API 

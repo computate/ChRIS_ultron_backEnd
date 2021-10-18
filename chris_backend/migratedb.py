@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import time
+import os
 import sys
 import psycopg2
 from argparse import ArgumentParser
@@ -28,11 +29,14 @@ parser.add_argument('--noinput', action='store_true',
 # Parse the arguments and perform the appropriate action
 args = parser.parse_args()
 
-host = args.host if args.host else 'localhost'
+host = os.getenv('DEV_DB_HOSTNAME')
+if not host:
+    host = args.host if args.host else 'localhost'
 max_tries = args.attempts if args.attempts else 30
 db = None
 while max_tries > 0 and db is None:
     try:
+
         db = psycopg2.connect(host=host, user=args.user, password=args.password,
                               dbname=args.database)
     except Exception:

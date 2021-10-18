@@ -1,0 +1,16 @@
+---
+# hackathonTitle: create an Ansible Playbook to setup the pman container locally. 
+# hackathonColumn: Automate pman
+# hackathonLabels: ansible,yml
+# TODO: define the playbook to run locally
+- name: Install the ChRIS containers locally in podman with Ansible
+  connection: local
+  hosts: localhost
+
+
+  # TODO: Run the chris_defaults role to load the ChRIS related variables. 
+  roles:
+    - chris_defaults
+    # TODO: Now run the chris_pman role to install the pman container to podman. 
+    - chris_pman
+
