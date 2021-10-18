@@ -4,6 +4,12 @@
 # hackathonLabel: create_before_tasks
 # hackathonLabels: ansible,yml
 # TODO: Automate the installation of ChRIS dependencies. 
+- name: "Setup podman Linux virtual machine on MacOS"
+  shell: "podman machine init"
+  when: ansible_pkg_mgr == 'homebrew'
+- name: "Start the podman Linux virtual machine on MacOS"
+  shell: "podman machine start"
+  when: ansible_pkg_mgr == 'homebrew'
 - name: "install podman dependency"
   package:
     name:

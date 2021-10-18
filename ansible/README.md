@@ -44,7 +44,7 @@ git clone git@github.com:team19hackathon2021/ChRIS_ultron_backEnd.git /usr/local
 
 ```bash
 cd /usr/local/src/ChRIS_ultron_backEnd
-ansible-playbook -K install_all.yml
+ansible-playbook -K /usr/local/src/ChRIS_ultron_backEnd/ansible/install_all.yml
 ```
 
 # Troubleshooting

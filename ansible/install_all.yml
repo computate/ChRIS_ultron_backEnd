@@ -10,6 +10,7 @@
 
   # TODO: Call the all the  ChRIS Ansible roles. 
   roles:
+    - chris_defaults
     - chris_before
     - chris_dev_db
     - chris_pman
