@@ -82,6 +82,7 @@
     state: present
   become: true
   when: APP_POD_NETWORK is defined
+  ignore_errors: true
 
 
 # TODO: Allow Podman to run containers as systemd services for better logging, starting, stopping and enabling services. 
