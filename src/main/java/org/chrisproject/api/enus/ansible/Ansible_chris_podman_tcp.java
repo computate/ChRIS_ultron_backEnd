@@ -5,7 +5,7 @@ package org.chrisproject.api.enus.ansible;
  * DisplayName.enUS: ChRIS_ultron_backEnd/ansible/chris_podman_tcp.yml
  * Map.hackathonLabel: create_java_class_Ansible_chris_podman_tcp
  * Map.hackathonMission: create an Ansible Playbook to setup the pfcon container locally
- * Map.hackathonTitle: Create the file ChRIS_ultron_backEnd/ansible/chris_podman_tcp.yml
+ * Map.hackathonTitle: create an Ansible Playbook to setup the pfcon container locally
  * Map.hackathonColumn: Automate ChRIS install
  * Map.hackathonLabels: ansible,yml
  * enUS: define the playbook to run locally

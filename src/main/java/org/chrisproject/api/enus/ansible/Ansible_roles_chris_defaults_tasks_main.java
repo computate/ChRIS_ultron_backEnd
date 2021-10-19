@@ -4,7 +4,7 @@ package org.chrisproject.api.enus.ansible;
  * ContentType: text/plain
  * DisplayName.enUS: ChRIS_ultron_backEnd/ansible/roles/chris_defaults/tasks/main.yml
  * Map.hackathonLabel: create_java_class_Ansible_roles_chris_defaults_tasks_main
- * Map.hackathonMission: Ansible script
+ * Map.hackathonMission: Create the file ChRIS_ultron_backEnd/ansible/roles/chris_defaults/tasks/main.yml
  * Map.hackathonTitle: Create the file ChRIS_ultron_backEnd/ansible/roles/chris_defaults/tasks/main.yml
  * Map.hackathonColumn: 
  * Map.hackathonLabels: 
@@ -35,5 +35,7 @@ public class Ansible_roles_chris_defaults_tasks_main {
 //    var: APP_POD_NETWORK
 //- debug:
 //    var: APP_CONTAINER_NETWORK
+//- debug:
+//    var: APP_PYTHON
 	}
 }

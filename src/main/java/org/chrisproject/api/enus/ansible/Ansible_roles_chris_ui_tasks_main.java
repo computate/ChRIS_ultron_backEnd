@@ -5,7 +5,7 @@ package org.chrisproject.api.enus.ansible;
  * DisplayName.enUS: ChRIS_ultron_backEnd/ansible/roles/chris_ui/tasks/main.yml
  * Map.hackathonLabel: create_ui_tasks
  * Map.hackathonMission: define the Ansible tasks to install the ChRIS UI application as a container in podman
- * Map.hackathonTitle: Create the file ChRIS_ultron_backEnd/ansible/roles/chris_ui/tasks/main.yml
+ * Map.hackathonTitle: define the Ansible tasks to install the ChRIS UI application as a container in podman
  * Map.hackathonColumn: Automate ui
  * Map.hackathonLabels: ansible,yml
  * enUS: automate the setup of the ChRIS UI source code repository. 

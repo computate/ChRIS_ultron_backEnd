@@ -5,7 +5,7 @@ package org.chrisproject.api.enus.ansible;
  * DisplayName.enUS: ChRIS_ultron_backEnd/ansible/roles/chris_scheduler/templates/chris_scheduler.service
  * Map.hackathonLabel: create_scheduler_service_template
  * Map.hackathonMission: define the ChRIS scheduler systemd service file.  
- * Map.hackathonTitle: Create the file ChRIS_ultron_backEnd/ansible/roles/chris_scheduler/templates/chris_scheduler.service
+ * Map.hackathonTitle: define the ChRIS scheduler systemd service file.  
  * Map.hackathonColumn: Automate scheduler
  * Map.hackathonLabels: ansible,yml
  */

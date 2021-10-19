@@ -5,7 +5,7 @@ package org.chrisproject.api.enus.ansible;
  * DisplayName.enUS: ChRIS_ultron_backEnd/ansible/roles/chris_queue/templates/chris_queue.service
  * Map.hackathonLabel: create_queue_service_template
  * Map.hackathonMission: define the ChRIS RabbitMQ queue systemd service file
- * Map.hackathonTitle: Create the file ChRIS_ultron_backEnd/ansible/roles/chris_queue/templates/chris_queue.service
+ * Map.hackathonTitle: define the ChRIS RabbitMQ queue systemd service file
  * Map.hackathonColumn: Automate queue
  * Map.hackathonLabels: ansible,yml
  */

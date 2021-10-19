@@ -5,7 +5,7 @@ package org.chrisproject.api.enus.ansible;
  * DisplayName.enUS: ChRIS_ultron_backEnd/ansible/roles/chris_plugin/tasks/main.yml
  * Map.hackathonLabel: create_plugin_tasks
  * Map.hackathonMission: define the Ansible tasks to setup ChRIS plugins
- * Map.hackathonTitle: Create the file ChRIS_ultron_backEnd/ansible/roles/chris_plugin/tasks/main.yml
+ * Map.hackathonTitle: define the Ansible tasks to setup ChRIS plugins
  * Map.hackathonColumn: Automate plugins
  * Map.hackathonLabels: ansible,yml
  */

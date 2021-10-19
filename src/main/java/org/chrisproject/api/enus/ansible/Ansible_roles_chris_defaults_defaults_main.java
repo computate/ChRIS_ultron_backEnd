@@ -5,7 +5,7 @@ package org.chrisproject.api.enus.ansible;
  * DisplayName.enUS: ChRIS_ultron_backEnd/ansible/roles/chris_defaults/defaults/main.yml
  * Map.hackathonLabel: create_defaults
  * Map.hackathonMission: define the default Ansible variables to use
- * Map.hackathonTitle: Create the file ChRIS_ultron_backEnd/ansible/roles/chris_defaults/defaults/main.yml
+ * Map.hackathonTitle: define the default Ansible variables to use
  * Map.hackathonColumn: Automate ChRIS install
  * Map.hackathonLabels: ansible,yml
  * enUS: Define the main application variables. 

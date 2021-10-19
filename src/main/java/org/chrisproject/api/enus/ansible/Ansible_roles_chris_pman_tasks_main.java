@@ -5,7 +5,7 @@ package org.chrisproject.api.enus.ansible;
  * DisplayName.enUS: ChRIS_ultron_backEnd/ansible/roles/chris_pman/tasks/main.yml
  * Map.hackathonLabel: create_pman_tasks
  * Map.hackathonMission: define the Ansible tasks to setup the pman application as a container in podman
- * Map.hackathonTitle: Create the file ChRIS_ultron_backEnd/ansible/roles/chris_pman/tasks/main.yml
+ * Map.hackathonTitle: define the Ansible tasks to setup the pman application as a container in podman
  * Map.hackathonColumn: Automate pman
  * Map.hackathonLabels: ansible,yml
  * enUS: automate the setup of the ChRIS pman source code repository. 

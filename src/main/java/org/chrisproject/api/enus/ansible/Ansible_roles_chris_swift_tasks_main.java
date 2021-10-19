@@ -5,7 +5,7 @@ package org.chrisproject.api.enus.ansible;
  * DisplayName.enUS: ChRIS_ultron_backEnd/ansible/roles/chris_swift/tasks/main.yml
  * Map.hackathonLabel: create_swift_tasks
  * Map.hackathonMission: define the Ansible tasks to install the swift application as a container in podman
- * Map.hackathonTitle: Create the file ChRIS_ultron_backEnd/ansible/roles/chris_swift/tasks/main.yml
+ * Map.hackathonTitle: define the Ansible tasks to install the swift application as a container in podman
  * Map.hackathonColumn: Automate swift
  * Map.hackathonLabels: ansible,yml
  * enUS: Setup the Swift data directory. 

@@ -5,7 +5,7 @@ package org.chrisproject.api.enus.ansible;
  * DisplayName.enUS: ChRIS_ultron_backEnd/ansible/roles/chris_podman_tcp/templates/chris_podman_tcp.service
  * Map.hackathonLabel: create_podman_tcp_service_template
  * Map.hackathonMission: define the ChRIS Podman TCP systemd service file
- * Map.hackathonTitle: Create the file ChRIS_ultron_backEnd/ansible/roles/chris_podman_tcp/templates/chris_podman_tcp.service
+ * Map.hackathonTitle: define the ChRIS Podman TCP systemd service file
  * Map.hackathonColumn: Automate ChRIS install
  * Map.hackathonLabels: ansible,yml
  */

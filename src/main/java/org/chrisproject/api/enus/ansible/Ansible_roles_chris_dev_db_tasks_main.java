@@ -5,7 +5,7 @@ package org.chrisproject.api.enus.ansible;
  * DisplayName.enUS: ChRIS_ultron_backEnd/ansible/roles/chris_dev_db/tasks/main.yml
  * Map.hackathonLabel: create_dev_db_tasks
  * Map.hackathonMission: define the Ansible tasks to install the dev PostgreSQL database application as a container in podman
- * Map.hackathonTitle: Create the file ChRIS_ultron_backEnd/ansible/roles/chris_dev_db/tasks/main.yml
+ * Map.hackathonTitle: define the Ansible tasks to install the dev PostgreSQL database application as a container in podman
  * Map.hackathonColumn: Automate dev database
  * Map.hackathonLabels: ansible,yml
  * enUS: Automate the setup of the ChRIS DB data directory. 

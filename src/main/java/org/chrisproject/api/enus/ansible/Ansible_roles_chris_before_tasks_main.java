@@ -5,7 +5,7 @@ package org.chrisproject.api.enus.ansible;
  * DisplayName.enUS: ChRIS_ultron_backEnd/ansible/roles/chris_before/tasks/main.yml
  * Map.hackathonLabel: create_before_tasks
  * Map.hackathonMission: define the beginning Ansible tasks to install ChRIS to podman locally
- * Map.hackathonTitle: Create the file ChRIS_ultron_backEnd/ansible/roles/chris_before/tasks/main.yml
+ * Map.hackathonTitle: define the beginning Ansible tasks to install ChRIS to podman locally
  * Map.hackathonColumn: Automate ChRIS install
  * Map.hackathonLabels: ansible,yml
  * enUS: Automate the installation of ChRIS dependencies. 
@@ -109,6 +109,7 @@ public class Ansible_roles_chris_before_tasks_main {
 //    state: present
 //  become: true
 //  when: APP_POD_NETWORK is defined
+//  ignore_errors: true
 	}
 
 	/**

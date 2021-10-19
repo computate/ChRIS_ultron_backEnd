@@ -5,7 +5,7 @@ package org.chrisproject.api.enus.ansible;
  * DisplayName.enUS: ChRIS_ultron_backEnd/ansible/roles/chris_dev_db/templates/chris_dev_db.service
  * Map.hackathonLabel: create_dev_db_service_template
  * Map.hackathonMission: define the ChRIS dev database systemd service file
- * Map.hackathonTitle: Create the file ChRIS_ultron_backEnd/ansible/roles/chris_dev_db/templates/chris_dev_db.service
+ * Map.hackathonTitle: define the ChRIS dev database systemd service file
  * Map.hackathonColumn: Automate dev database
  * Map.hackathonLabels: ansible,yml
  */

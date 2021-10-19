@@ -5,7 +5,7 @@ package org.chrisproject.api.enus.ansible;
  * DisplayName.enUS: ChRIS_ultron_backEnd/ansible/chris_before.yml
  * Map.hackathonLabel: create_java_class_Ansible_chris_before
  * Map.hackathonMission: create an Ansible Playbook to setup the initial ChRIS prerequisites
- * Map.hackathonTitle: Create the file ChRIS_ultron_backEnd/ansible/chris_before.yml
+ * Map.hackathonTitle: create an Ansible Playbook to setup the initial ChRIS prerequisites
  * Map.hackathonColumn: Automate ChRIS install
  * Map.hackathonLabels: ansible,yml
  * enUS: Define the playbook to run locally. 

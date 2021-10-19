@@ -5,7 +5,7 @@ package org.chrisproject.api.enus.ansible;
  * DisplayName.enUS: ChRIS_ultron_backEnd/ansible/roles/chris_dev/tasks/main.yml
  * Map.hackathonLabel: create_dev_tasks
  * Map.hackathonMission: define the Ansible tasks to install the ChRIS dev application as a container in podman
- * Map.hackathonTitle: Create the file ChRIS_ultron_backEnd/ansible/roles/chris_dev/tasks/main.yml
+ * Map.hackathonTitle: define the Ansible tasks to install the ChRIS dev application as a container in podman
  * Map.hackathonColumn: Automate dev
  * Map.hackathonLabels: ansible,yml
  * enUS: Automate the deployment of ChRIS dev as a Podman container running as a Systemd service. 

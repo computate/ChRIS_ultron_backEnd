@@ -5,7 +5,7 @@ package org.chrisproject.api.enus.ansible;
  * DisplayName.enUS: ChRIS_ultron_backEnd/ansible/chris_dev.yml
  * Map.hackathonLabel: create_java_class_Ansible_chris_dev
  * Map.hackathonMission: create an Ansible Playbook to setup the dev container locally
- * Map.hackathonTitle: Create the file ChRIS_ultron_backEnd/ansible/chris_dev.yml
+ * Map.hackathonTitle: create an Ansible Playbook to setup the dev container locally
  * Map.hackathonColumn: Automate dev
  * Map.hackathonLabels: ansible,yml
  * enUS: define the playbook to run locally

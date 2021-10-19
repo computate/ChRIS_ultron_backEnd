@@ -5,7 +5,7 @@ package org.chrisproject.api.enus.ansible;
  * DisplayName.enUS: ChRIS_ultron_backEnd/ansible/chris_scheduler.yml
  * Map.hackathonLabel: create_java_class_Ansible_chris_scheduler
  * Map.hackathonMission: create an Ansible Playbook to setup the scheduler container locally
- * Map.hackathonTitle: Create the file ChRIS_ultron_backEnd/ansible/chris_scheduler.yml
+ * Map.hackathonTitle: create an Ansible Playbook to setup the scheduler container locally
  * Map.hackathonColumn: Automate scheduler
  * Map.hackathonLabels: ansible,yml
  * enUS: define the playbook to run locally

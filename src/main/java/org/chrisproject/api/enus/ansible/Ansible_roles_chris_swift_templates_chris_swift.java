@@ -5,7 +5,7 @@ package org.chrisproject.api.enus.ansible;
  * DisplayName.enUS: ChRIS_ultron_backEnd/ansible/roles/chris_swift/templates/chris_swift.service
  * Map.hackathonLabel: create_swift_service_template
  * Map.hackathonMission: define the ChRIS Swift storage systemd service file.  
- * Map.hackathonTitle: Create the file ChRIS_ultron_backEnd/ansible/roles/chris_swift/templates/chris_swift.service
+ * Map.hackathonTitle: define the ChRIS Swift storage systemd service file.  
  * Map.hackathonColumn: Automate swift
  * Map.hackathonLabels: ansible,yml
  */
