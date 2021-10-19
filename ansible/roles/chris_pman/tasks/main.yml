@@ -1,9 +1,9 @@
 ---
-# hackathonTitle: define the Ansible tasks to setup the pman application as a container in podman. 
+# hackathonMission: define the Ansible tasks to setup the pman application as a container in podman
 # hackathonColumn: Automate pman
 # hackathonLabel: create_pman_tasks
 # hackathonLabels: ansible,yml
-# TODO: Automomate the setup of the ChRIS pman source code repository. 
+# TODO: automate the setup of the ChRIS pman source code repository. 
 - name: Check for the {{ PMAN_NAME }} README file
   stat:
     path: "{{ PMAN_SRC }}/README.rst"

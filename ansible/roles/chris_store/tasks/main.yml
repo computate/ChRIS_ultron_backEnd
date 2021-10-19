@@ -1,5 +1,5 @@
 ---
-# hackathonTitle: define the Ansible tasks to install the store application as a container in podman. 
+# hackathonMission: define the Ansible tasks to install the store application as a container in podman
 # hackathonColumn: Automate store
 # hackathonLabel: create_store_tasks
 # hackathonLabels: ansible,yml

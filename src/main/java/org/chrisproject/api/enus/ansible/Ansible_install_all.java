@@ -4,8 +4,8 @@ package org.chrisproject.api.enus.ansible;
  * ContentType: text/plain
  * DisplayName.enUS: ChRIS_ultron_backEnd/ansible/install_all.yml
  * Map.hackathonLabel: create_java_class_Ansible_install_all
- * Map.hackathonMission: Define the playbook to run locally. 
- * Map.hackathonTitle: create an Ansible Playbook to setup everything. 
+ * Map.hackathonMission: create an Ansible Playbook to setup everything
+ * Map.hackathonTitle: Create the file ChRIS_ultron_backEnd/ansible/install_all.yml
  * Map.hackathonColumn: Automate ChRIS install
  * Map.hackathonLabels: ansible,yml
  * enUS: Define the playbook to run locally. 
@@ -35,6 +35,7 @@ public class Ansible_install_all {
 //
 //  # Call the all the  ChRIS Ansible roles. 
 //  roles:
+//    - chris_defaults
 //    - chris_before
 //    - chris_dev_db
 //    - chris_pman

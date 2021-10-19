@@ -1,5 +1,5 @@
 ---
-# hackathonTitle: define the Ansible tasks to install the queue application as a container in podman. 
+# hackathonMission: define the Ansible tasks to install the queue application as a container in podman
 # hackathonColumn: Automate queue
 # hackathonLabel: create_queue_tasks
 # hackathonLabels: ansible,yml

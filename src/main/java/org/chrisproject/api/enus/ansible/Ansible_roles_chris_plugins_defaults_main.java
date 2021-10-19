@@ -4,8 +4,8 @@ package org.chrisproject.api.enus.ansible;
  * ContentType: text/plain
  * DisplayName.enUS: ChRIS_ultron_backEnd/ansible/roles/chris_plugins/defaults/main.yml
  * Map.hackathonLabel: create_plugins_defaults
- * Map.hackathonMission: Ansible script
- * Map.hackathonTitle: define the ChRIS plugin default variables
+ * Map.hackathonMission: define the ChRIS plugin default variables
+ * Map.hackathonTitle: Create the file ChRIS_ultron_backEnd/ansible/roles/chris_plugins/defaults/main.yml
  * Map.hackathonColumn: Automate ChRIS install
  * Map.hackathonLabels: ansible,yml
  */

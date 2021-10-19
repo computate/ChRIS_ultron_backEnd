@@ -4,8 +4,8 @@ package org.chrisproject.api.enus.ansible;
  * ContentType: text/plain
  * DisplayName.enUS: ChRIS_ultron_backEnd/ansible/roles/chris_queue/tasks/main.yml
  * Map.hackathonLabel: create_queue_tasks
- * Map.hackathonMission: Setup the RabbitMQ data directory. 
- * Map.hackathonTitle: define the Ansible tasks to install the queue application as a container in podman. 
+ * Map.hackathonMission: define the Ansible tasks to install the queue application as a container in podman
+ * Map.hackathonTitle: Create the file ChRIS_ultron_backEnd/ansible/roles/chris_queue/tasks/main.yml
  * Map.hackathonColumn: Automate queue
  * Map.hackathonLabels: ansible,yml
  * enUS: Setup the RabbitMQ data directory. 

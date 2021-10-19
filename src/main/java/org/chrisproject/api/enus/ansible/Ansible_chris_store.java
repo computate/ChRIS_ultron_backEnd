@@ -4,8 +4,8 @@ package org.chrisproject.api.enus.ansible;
  * ContentType: text/plain
  * DisplayName.enUS: ChRIS_ultron_backEnd/ansible/chris_store.yml
  * Map.hackathonLabel: create_java_class_Ansible_chris_store
- * Map.hackathonMission: define the playbook to run locally
- * Map.hackathonTitle: create an Ansible Playbook to setup the store container locally. 
+ * Map.hackathonMission: create an Ansible Playbook to setup the store container locally
+ * Map.hackathonTitle: Create the file ChRIS_ultron_backEnd/ansible/chris_store.yml
  * Map.hackathonColumn: Automate store
  * Map.hackathonLabels: ansible,yml
  * enUS: define the playbook to run locally

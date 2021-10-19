@@ -1,4 +1,4 @@
-# hackathonTitle: define the ChRIS Podman TCP systemd service file. 
+# hackathonMission: define the ChRIS Podman TCP systemd service file
 # hackathonColumn: Automate ChRIS install
 # hackathonLabel: create_podman_tcp_service_template
 # hackathonLabels: ansible,yml

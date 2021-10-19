@@ -1,4 +1,4 @@
-# hackathonTitle: define the ChRIS worker systemd service file.  
+# hackathonMission: define the ChRIS worker systemd service file.  
 # hackathonColumn: Automate worker
 # hackathonLabel: create_worker_service_template
 # hackathonLabels: ansible,yml

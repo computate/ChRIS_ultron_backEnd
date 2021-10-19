@@ -1,5 +1,5 @@
 ---
-# hackathonTitle: define the ChRIS plugin default variables
+# hackathonMission: define the ChRIS plugin default variables
 # hackathonColumn: Automate ChRIS install
 # hackathonLabel: create_plugins_defaults
 # hackathonLabels: ansible,yml

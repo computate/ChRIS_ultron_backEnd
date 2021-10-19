@@ -4,8 +4,8 @@ package org.chrisproject.api.enus.ansible;
  * ContentType: text/plain
  * DisplayName.enUS: ChRIS_ultron_backEnd/ansible/roles/chris_worker_periodic/templates/chris_worker_periodic.service
  * Map.hackathonLabel: create_worker_periodic_service_template
- * Map.hackathonMission: Ansible script
- * Map.hackathonTitle: define the ChRIS worker periodic systemd service file.  
+ * Map.hackathonMission: define the ChRIS worker periodic systemd service file.  
+ * Map.hackathonTitle: Create the file ChRIS_ultron_backEnd/ansible/roles/chris_worker_periodic/templates/chris_worker_periodic.service
  * Map.hackathonColumn: Automate worker periodic
  * Map.hackathonLabels: ansible,yml
  */

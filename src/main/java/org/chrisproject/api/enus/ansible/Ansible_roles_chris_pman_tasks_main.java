@@ -4,24 +4,24 @@ package org.chrisproject.api.enus.ansible;
  * ContentType: text/plain
  * DisplayName.enUS: ChRIS_ultron_backEnd/ansible/roles/chris_pman/tasks/main.yml
  * Map.hackathonLabel: create_pman_tasks
- * Map.hackathonMission: Automomate the setup of the ChRIS pman source code repository. 
- * Map.hackathonTitle: define the Ansible tasks to setup the pman application as a container in podman. 
+ * Map.hackathonMission: define the Ansible tasks to setup the pman application as a container in podman
+ * Map.hackathonTitle: Create the file ChRIS_ultron_backEnd/ansible/roles/chris_pman/tasks/main.yml
  * Map.hackathonColumn: Automate pman
  * Map.hackathonLabels: ansible,yml
- * enUS: Automomate the setup of the ChRIS pman source code repository. 
+ * enUS: automate the setup of the ChRIS pman source code repository. 
  * enUS: Automate the deployment of ChRIS pman as a Podman container running as a Systemd service. 
  */
 public class Ansible_roles_chris_pman_tasks_main {
 
 	/**
-	 * DisplayName.enUS: Automomate the setup of the ChRIS pman source code repository. 
+	 * DisplayName.enUS: automate the setup of the ChRIS pman source code repository. 
 	 * enUS: Create a new file: /usr/local/src/ChRIS_ultron_backEnd/ansible/roles/chris_pman/tasks/main.yml
 	 * enUS: 
 	 * enUS: 
 	 */
 	public void part1() {
 //---
-//# Automomate the setup of the ChRIS pman source code repository. 
+//# automate the setup of the ChRIS pman source code repository. 
 //- name: Check for the {{ PMAN_NAME }} README file
 //  stat:
 //    path: "{{ PMAN_SRC }}/README.rst"

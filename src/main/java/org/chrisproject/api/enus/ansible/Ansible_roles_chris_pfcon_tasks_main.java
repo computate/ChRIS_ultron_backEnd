@@ -4,24 +4,24 @@ package org.chrisproject.api.enus.ansible;
  * ContentType: text/plain
  * DisplayName.enUS: ChRIS_ultron_backEnd/ansible/roles/chris_pfcon/tasks/main.yml
  * Map.hackathonLabel: create_pfcon_tasks
- * Map.hackathonMission: Automomate the setup of the ChRIS pfcon source code repository. 
- * Map.hackathonTitle: define the Ansible tasks to install the pfcon application as a container in podman. 
+ * Map.hackathonMission: define the Ansible tasks to install the pfcon application as a container in podman
+ * Map.hackathonTitle: Create the file ChRIS_ultron_backEnd/ansible/roles/chris_pfcon/tasks/main.yml
  * Map.hackathonColumn: Automate pfcon
  * Map.hackathonLabels: ansible,yml
- * enUS: Automomate the setup of the ChRIS pfcon source code repository. 
+ * enUS: automate the setup of the ChRIS pfcon source code repository. 
  * enUS: Automate the deployment of ChRIS pfcon as a Podman container running as a Systemd service. 
  */
 public class Ansible_roles_chris_pfcon_tasks_main {
 
 	/**
-	 * DisplayName.enUS: Automomate the setup of the ChRIS pfcon source code repository. 
+	 * DisplayName.enUS: automate the setup of the ChRIS pfcon source code repository. 
 	 * enUS: Create a new file: /usr/local/src/ChRIS_ultron_backEnd/ansible/roles/chris_pfcon/tasks/main.yml
 	 * enUS: 
 	 * enUS: 
 	 */
 	public void part1() {
 //---
-//# Automomate the setup of the ChRIS pfcon source code repository. 
+//# automate the setup of the ChRIS pfcon source code repository. 
 //- name: Check for the {{ PFCON_NAME }} README file
 //  stat:
 //    path: "{{ PFCON_SRC }}/README.rst"

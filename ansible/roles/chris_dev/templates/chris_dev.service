@@ -1,4 +1,4 @@
-# hackathonTitle: define the ChRIS dev systemd service file. 
+# hackathonMission: define the ChRIS dev systemd service file
 # hackathonColumn: Automate dev
 # hackathonLabel: create_dev_service_template
 # hackathonLabels: ansible,yml

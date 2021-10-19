@@ -1,4 +1,4 @@
-# hackathonTitle: define the ChRIS Swift storage systemd service file.  
+# hackathonMission: define the ChRIS Swift storage systemd service file.  
 # hackathonColumn: Automate swift
 # hackathonLabel: create_swift_service_template
 # hackathonLabels: ansible,yml

@@ -1,9 +1,9 @@
 ---
-# hackathonTitle: define the Ansible tasks to install the ChRIS UI application as a container in podman. 
+# hackathonMission: define the Ansible tasks to install the ChRIS UI application as a container in podman
 # hackathonColumn: Automate ui
 # hackathonLabel: create_ui_tasks
 # hackathonLabels: ansible,yml
-# TODO: Automomate the setup of the ChRIS UI source code repository. 
+# TODO: automate the setup of the ChRIS UI source code repository. 
 - name: Check for the {{ UI_NAME }} README file
   stat:
     path: "{{ UI_SRC }}/README.md"

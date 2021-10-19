@@ -4,8 +4,8 @@ package org.chrisproject.api.enus.ansible;
  * ContentType: text/plain
  * DisplayName.enUS: ChRIS_ultron_backEnd/ansible/roles/chris_scheduler/tasks/main.yml
  * Map.hackathonLabel: create_scheduler_tasks
- * Map.hackathonMission: Automate the deployment of ChRIS scheduler as a Podman container running as a Systemd service. 
- * Map.hackathonTitle: define the Ansible tasks to install the scheduler application as a container in podman. 
+ * Map.hackathonMission: define the Ansible tasks to install the scheduler application as a container in podman
+ * Map.hackathonTitle: Create the file ChRIS_ultron_backEnd/ansible/roles/chris_scheduler/tasks/main.yml
  * Map.hackathonColumn: Automate scheduler
  * Map.hackathonLabels: ansible,yml
  * enUS: Automate the deployment of ChRIS scheduler as a Podman container running as a Systemd service. 

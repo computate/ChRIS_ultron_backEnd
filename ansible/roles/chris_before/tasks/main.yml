@@ -1,5 +1,5 @@
 ---
-# hackathonTitle: define the beginning Ansible tasks to install ChRIS to podman locally.
+# hackathonMission: define the beginning Ansible tasks to install ChRIS to podman locally
 # hackathonColumn: Automate ChRIS install
 # hackathonLabel: create_before_tasks
 # hackathonLabels: ansible,yml

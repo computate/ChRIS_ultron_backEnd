@@ -1,5 +1,5 @@
 ---
-# hackathonTitle: define the Ansible tasks to install the worker application as a container in podman. 
+# hackathonMission: define the Ansible tasks to install the worker application as a container in podman
 # hackathonColumn: Automate worker
 # hackathonLabel: create_worker_tasks
 # hackathonLabels: ansible,yml

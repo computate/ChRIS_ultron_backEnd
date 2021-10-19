@@ -4,8 +4,8 @@ package org.chrisproject.api.enus.ansible;
  * ContentType: text/plain
  * DisplayName.enUS: ChRIS_ultron_backEnd/ansible/roles/chris_after/tasks/main.yml
  * Map.hackathonLabel: create_after_tasks
- * Map.hackathonMission: Ansible script
- * Map.hackathonTitle: define the ending Ansible tasks to install ChRIS to podman locally. 
+ * Map.hackathonMission: define the ending Ansible tasks to install ChRIS to podman locally
+ * Map.hackathonTitle: Create the file ChRIS_ultron_backEnd/ansible/roles/chris_after/tasks/main.yml
  * Map.hackathonColumn: Automate ChRIS install
  * Map.hackathonLabels: ansible,yml
  */

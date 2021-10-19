@@ -1,5 +1,5 @@
 ---
-# hackathonTitle: define the default Ansible variables to use. 
+# hackathonMission: define the default Ansible variables to use
 # hackathonColumn: Automate ChRIS install
 # hackathonLabel: create_defaults
 # hackathonLabels: ansible,yml

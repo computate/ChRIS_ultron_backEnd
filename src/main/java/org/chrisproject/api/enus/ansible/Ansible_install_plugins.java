@@ -4,8 +4,8 @@ package org.chrisproject.api.enus.ansible;
  * ContentType: text/plain
  * DisplayName.enUS: ChRIS_ultron_backEnd/ansible/install_plugins.yml
  * Map.hackathonLabel: create_java_class_Ansible_install_plugins
- * Map.hackathonMission: Define the playbook to run locally. 
- * Map.hackathonTitle: create an Ansible Playbook to setup the main ChRIS plugins. 
+ * Map.hackathonMission: create an Ansible Playbook to setup the main ChRIS plugins
+ * Map.hackathonTitle: Create the file ChRIS_ultron_backEnd/ansible/install_plugins.yml
  * Map.hackathonColumn: Automate ChRIS install
  * Map.hackathonLabels: ansible,yml
  * enUS: Define the playbook to run locally. 

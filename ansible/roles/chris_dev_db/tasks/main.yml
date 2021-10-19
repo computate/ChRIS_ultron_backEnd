@@ -1,5 +1,5 @@
 ---
-# hackathonTitle: define the Ansible tasks to install the dev PostgreSQL database application as a container in podman. 
+# hackathonMission: define the Ansible tasks to install the dev PostgreSQL database application as a container in podman
 # hackathonColumn: Automate dev database
 # hackathonLabel: create_dev_db_tasks
 # hackathonLabels: ansible,yml

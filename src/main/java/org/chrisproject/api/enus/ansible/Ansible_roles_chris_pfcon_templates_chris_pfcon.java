@@ -4,8 +4,8 @@ package org.chrisproject.api.enus.ansible;
  * ContentType: text/plain
  * DisplayName.enUS: ChRIS_ultron_backEnd/ansible/roles/chris_pfcon/templates/chris_pfcon.service
  * Map.hackathonLabel: create_pfcon_service_template
- * Map.hackathonMission: Ansible script
- * Map.hackathonTitle: define the ChRIS pfcon systemd service file.  
+ * Map.hackathonMission: define the ChRIS pfcon systemd service file.  
+ * Map.hackathonTitle: Create the file ChRIS_ultron_backEnd/ansible/roles/chris_pfcon/templates/chris_pfcon.service
  * Map.hackathonColumn: Automate pfcon
  * Map.hackathonLabels: ansible,yml
  */

@@ -4,8 +4,8 @@ package org.chrisproject.api.enus.ansible;
  * ContentType: text/plain
  * DisplayName.enUS: ChRIS_ultron_backEnd/ansible/roles/chris_before/tasks/main.yml
  * Map.hackathonLabel: create_before_tasks
- * Map.hackathonMission: Automate the installation of ChRIS dependencies. 
- * Map.hackathonTitle: define the beginning Ansible tasks to install ChRIS to podman locally.
+ * Map.hackathonMission: define the beginning Ansible tasks to install ChRIS to podman locally
+ * Map.hackathonTitle: Create the file ChRIS_ultron_backEnd/ansible/roles/chris_before/tasks/main.yml
  * Map.hackathonColumn: Automate ChRIS install
  * Map.hackathonLabels: ansible,yml
  * enUS: Automate the installation of ChRIS dependencies. 
@@ -25,6 +25,12 @@ public class Ansible_roles_chris_before_tasks_main {
 	public void part1() {
 //---
 //# Automate the installation of ChRIS dependencies. 
+//- name: "Setup podman Linux virtual machine on MacOS"
+//  shell: "podman machine init"
+//  when: ansible_pkg_mgr == 'homebrew'
+//- name: "Start the podman Linux virtual machine on MacOS"
+//  shell: "podman machine start"
+//  when: ansible_pkg_mgr == 'homebrew'
 //- name: "install podman dependency"
 //  package:
 //    name:

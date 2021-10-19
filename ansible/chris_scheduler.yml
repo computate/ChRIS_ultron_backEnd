@@ -1,5 +1,5 @@
 ---
-# hackathonTitle: create an Ansible Playbook to setup the scheduler container locally. 
+# hackathonMission: create an Ansible Playbook to setup the scheduler container locally
 # hackathonColumn: Automate scheduler
 # hackathonLabels: ansible,yml
 # TODO: define the playbook to run locally

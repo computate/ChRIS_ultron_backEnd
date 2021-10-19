@@ -4,8 +4,8 @@ package org.chrisproject.api.enus.ansible;
  * ContentType: text/plain
  * DisplayName.enUS: ChRIS_ultron_backEnd/ansible/roles/chris_ui/templates/chris_ui.service
  * Map.hackathonLabel: create_ui_service_template
- * Map.hackathonMission: Ansible script
- * Map.hackathonTitle: define the ChRIS UI systemd service file.  
+ * Map.hackathonMission: define the ChRIS UI systemd service file.  
+ * Map.hackathonTitle: Create the file ChRIS_ultron_backEnd/ansible/roles/chris_ui/templates/chris_ui.service
  * Map.hackathonColumn: Automate UI
  * Map.hackathonLabels: ansible,yml
  */

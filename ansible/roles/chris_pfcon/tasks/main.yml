@@ -1,9 +1,9 @@
 ---
-# hackathonTitle: define the Ansible tasks to install the pfcon application as a container in podman. 
+# hackathonMission: define the Ansible tasks to install the pfcon application as a container in podman
 # hackathonColumn: Automate pfcon
 # hackathonLabel: create_pfcon_tasks
 # hackathonLabels: ansible,yml
-# TODO: Automomate the setup of the ChRIS pfcon source code repository. 
+# TODO: automate the setup of the ChRIS pfcon source code repository. 
 - name: Check for the {{ PFCON_NAME }} README file
   stat:
     path: "{{ PFCON_SRC }}/README.rst"

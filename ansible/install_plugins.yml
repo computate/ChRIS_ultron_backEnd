@@ -1,5 +1,5 @@
 ---
-# hackathonTitle: create an Ansible Playbook to setup the main ChRIS plugins. 
+# hackathonMission: create an Ansible Playbook to setup the main ChRIS plugins
 # hackathonColumn: Automate ChRIS install
 # hackathonLabels: ansible,yml
 # TODO: Define the playbook to run locally. 

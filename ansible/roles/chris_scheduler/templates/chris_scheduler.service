@@ -1,4 +1,4 @@
-# hackathonTitle: define the ChRIS scheduler systemd service file.  
+# hackathonMission: define the ChRIS scheduler systemd service file.  
 # hackathonColumn: Automate scheduler
 # hackathonLabel: create_scheduler_service_template
 # hackathonLabels: ansible,yml

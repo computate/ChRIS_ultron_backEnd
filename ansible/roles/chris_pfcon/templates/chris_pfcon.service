@@ -1,4 +1,4 @@
-# hackathonTitle: define the ChRIS pfcon systemd service file.  
+# hackathonMission: define the ChRIS pfcon systemd service file.  
 # hackathonColumn: Automate pfcon
 # hackathonLabel: create_pfcon_service_template
 # hackathonLabels: ansible,yml

@@ -4,8 +4,8 @@ package org.chrisproject.api.enus.ansible;
  * ContentType: text/plain
  * DisplayName.enUS: ChRIS_ultron_backEnd/ansible/roles/chris_pman/templates/chris_pman.service
  * Map.hackathonLabel: create_pman_service_template
- * Map.hackathonMission: Ansible script
- * Map.hackathonTitle: define the ChRIS pman systemd service file.  
+ * Map.hackathonMission: define the ChRIS pman systemd service file.  
+ * Map.hackathonTitle: Create the file ChRIS_ultron_backEnd/ansible/roles/chris_pman/templates/chris_pman.service
  * Map.hackathonColumn: Automate pman
  * Map.hackathonLabels: ansible,yml
  */

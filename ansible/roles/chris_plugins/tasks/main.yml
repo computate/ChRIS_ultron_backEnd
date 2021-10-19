@@ -1,5 +1,5 @@
 ---
-# hackathonTitle: define the Ansible tasks to setup all the main ChRIS plugins. 
+# hackathonMission: define the Ansible tasks to setup all the main ChRIS plugins
 # hackathonColumn: Automate ChRIS install
 # hackathonLabel: create_plugins_tasks
 # hackathonLabels: ansible,yml

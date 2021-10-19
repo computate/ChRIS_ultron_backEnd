@@ -1,5 +1,5 @@
 ---
-# hackathonTitle: define the Ansible tasks to install the Podman TCP application as a container in podman. 
+# hackathonMission: define the Ansible tasks to install the Podman TCP application as a container in podman
 # hackathonColumn: Automate ChRIS install
 # hackathonLabel: create_podman_tcp_tasks
 # hackathonLabels: ansible,yml
