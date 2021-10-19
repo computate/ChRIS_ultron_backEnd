@@ -15,4 +15,5 @@
     var: APP_POD_NETWORK
 - debug:
     var: APP_CONTAINER_NETWORK
-
+- debug:
+    var: APP_PYTHON
